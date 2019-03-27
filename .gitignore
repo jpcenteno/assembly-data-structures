@@ -1,0 +1,12 @@
+# Executables
+*.o
+src/tester
+src/main
+
+# Archivos generados al correr los tests
+vgcore.*
+salida.caso1.txt
+salida.caso2.txt
+salida.caso3.txt
+salida.caso.propios.txt
+salida.main.propios.txt
