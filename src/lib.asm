@@ -32,7 +32,24 @@ global nTableRemoveSlot
 global nTableDeleteSlot
 global nTableDelete
 
+; uint32_t strLen(char* a)
+; EAX             RDI
 strLen:
+    push rbp
+    mov rbp, rsp
+
+    xor rax, rax  ; <- contador = 0
+
+  .loop:
+    mov dl, [rdi] ; Leo 1 char de `a`
+    cmp dl, 0     ; Es el caracter nulo?
+    jz .end       ; Si es nulo deja de sumar
+    inc eax
+    inc rdi
+    jmp .loop
+
+  .end:
+    pop rbp
     ret
 
 strClone:
