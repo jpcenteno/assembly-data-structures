@@ -26,7 +26,7 @@ void test_nTable(FILE *pfile){
 }
 
 int main (void){
-    FILE *pfile = fopen("salida.caso.propios.txt","w");
+    FILE *pfile = fopen("salida.main.propios.txt","w");
     test_string(pfile);
     test_n3tree(pfile);
     test_nTable(pfile);

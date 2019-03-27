@@ -6,7 +6,7 @@ Joaquin Perez Centeno (699/16)
 
 Funciones de `string`:
 - [ ] `char* strClone(char* a)` (19 Inst.)
-- [ ] `uint32_t strLen(char* a)` (7 Inst.)
+- [X] `uint32_t strLen(char* a)` (7 Inst.)
 - [ ] `int32_t strCmp(char* a, char* b)` (25 Inst.)
 - [ ] `char* strConcat(char* a, char* b)` (42 Inst.)
 - [ ] `void strDelete(char* a)` (1 Inst.)
@@ -39,3 +39,20 @@ Funciones a implementar en `C`:
 - [ ] `void listPrintReverse(list_t* l, FILE *pFile, funcPrint_t* fp)` (15 LOCs)
 - [ ] `void n3treePrint(n3tree_t* t, FILE *pFile, funcPrint_t* fp)` (11 LOCs)
 - [ ] `void nTableRemoveAll(nTable_t* t, void* data, funcCmp_t* fc, funcDelete_t* fd)` (2 LOCs)
+
+## Changelog
+
+### 2019/03/27
+
+- Implementacion de `strLen`
+
+#### Modificaciones a `runMain.sh`
+
+`runMain.sh` fue modificado para automatizar otras partes de testeo.
+
+- `salida.caso.propios.txt` fue renombrado a `salida.main.propios.txt` que me
+  resulta mas obvio.
+- `runMain.sh` corre otras partes del build y testeo, como hacer un diff entre
+  los resultados del test y los resultados esperados.
+- Se creo el archivo `salida.main.esperado.txt` para guardar los resultados
+  esperados.
