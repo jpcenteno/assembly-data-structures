@@ -1,3 +1,4 @@
+BITS 64
 
 section .rodata
 
