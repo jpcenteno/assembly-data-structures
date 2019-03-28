@@ -102,8 +102,21 @@ strDelete:
 
     pop rbp
     ret
- 
+
+; void strPrint(char* a, FILE *pFile);
+;               RDI      RSI
 strPrint:
+    push rbp
+    mov rbp, rsp
+
+    ; Swap `rdi` <-> `rsi`
+    mov rax, rdi
+    mov rdi, rsi
+    mov rsi, rax
+
+    call fprintf ; fprintf(pfile, a)
+
+    pop rbp
     ret
     
 listNew:

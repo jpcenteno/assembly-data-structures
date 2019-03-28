@@ -2,3 +2,5 @@ test_string:
 strLen("gato") = 4
 strLen("abc") = 3
 strLen("") = 0
+mambo
+mango

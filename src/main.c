@@ -26,6 +26,10 @@ void test_string(FILE *pfile){
     char* s3 = strClone("asdfg");
     strDelete(s3); // El test es que no leeakee memoria
 
+    // strPrint
+    strPrint("mambo\n", pfile);
+    strPrint("mango\n", pfile);
+
 }
 
 void test_n3tree(FILE *pfile){
