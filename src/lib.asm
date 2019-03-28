@@ -95,6 +95,12 @@ strConcat:
     ret
 
 strDelete:
+    push rbp
+    mov rbp, rsp
+
+    call free
+
+    pop rbp
     ret
  
 strPrint:

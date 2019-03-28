@@ -22,6 +22,10 @@ void test_string(FILE *pfile){
     assert(s1 != s2);
     free(s2);
 
+    // strDelete
+    char* s3 = strClone("asdfg");
+    strDelete(s3); // El test es que no leeakee memoria
+
 }
 
 void test_n3tree(FILE *pfile){

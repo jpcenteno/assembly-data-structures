@@ -9,7 +9,7 @@ Funciones de `string`:
 - [X] `uint32_t strLen(char* a)` (7 Inst.)
 - [ ] `int32_t strCmp(char* a, char* b)` (25 Inst.)
 - [ ] `char* strConcat(char* a, char* b)` (42 Inst.)
-- [ ] `void strDelete(char* a)` (1 Inst.)
+- [X] `void strDelete(char* a)` (1 Inst.)
 - [ ] `void strPrint(char* a, FILE *pFile)` (7 Inst.)
 
 Funciones de `list_t`:
@@ -60,3 +60,4 @@ Funciones a implementar en `C`:
 ### 2019/03/28
 
 - Implementacion de `strClone`
+- Implementacion de `strDelete`
