@@ -5,7 +5,7 @@ Joaquin Perez Centeno (699/16)
 ## Funciones a implementar
 
 Funciones de `string`:
-- [ ] `char* strClone(char* a)` (19 Inst.)
+- [X] `char* strClone(char* a)` (19 Inst.)
 - [X] `uint32_t strLen(char* a)` (7 Inst.)
 - [ ] `int32_t strCmp(char* a, char* b)` (25 Inst.)
 - [ ] `char* strConcat(char* a, char* b)` (42 Inst.)
@@ -56,3 +56,7 @@ Funciones a implementar en `C`:
   los resultados del test y los resultados esperados.
 - Se creo el archivo `salida.main.esperado.txt` para guardar los resultados
   esperados.
+
+### 2019/03/28
+
+- Implementacion de `strClone`
