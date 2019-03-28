@@ -53,7 +53,39 @@ strLen:
     pop rbp
     ret
 
+; char* strClone(char* a);
+; RAX            RDI
 strClone:
+    push rbp
+    mov rbp, rsp
+
+    ; Obtengo longitud de `a`
+    push rdi    ; Preservo `a`
+    sub rsp, 8  ; Balanceo stack para hacer el `call`
+    call strLen ; `eax = strLen(a)`
+
+    ; Hago malloc de `strLen(a) + 1` Bytes
+    inc eax      ; `eax = strLen(a) + 1`
+    mov edi, eax ; Pone `strLen(a) + 1` como primer parametro.
+    call malloc  ; Pide `strLen(a) + 1` Bytes
+
+    ; Recupero `a`
+    add rsp, 8
+    pop rdi
+
+    mov rsi, rax ; preservo rax
+
+    ; copio char x char hasta llegar al char nulo
+  .loop:
+    mov dl, [rdi] ; Leo 1 char de la memoria
+    mov [rsi], dl ; Lo escribo en la str destino
+    inc rdi
+    inc rsi
+    cmp dl, 0
+    jnz .loop
+
+
+    pop rbp
     ret
 
 strCmp:

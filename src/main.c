@@ -15,6 +15,13 @@ void test_string(FILE *pfile){
     fprintf(pfile, "strLen(\"abc\") = %d\n", strLen("abc"));
     fprintf(pfile, "strLen(\"\") = %d\n", strLen(""));
 
+    // strclone
+    char* s1 = "furfaro";
+    char* s2 = strClone(s1);
+    assert(strcmp(s1, s2) == 0);
+    assert(s1 != s2);
+    free(s2);
+
 }
 
 void test_n3tree(FILE *pfile){
