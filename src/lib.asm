@@ -177,7 +177,20 @@ strPrint:
     pop rbp
     ret
 
+; list_t* listNew();
+; RAX
 listNew:
+    push rbp
+    mov rbp, rsp
+
+    mov rdi, LIST_SIZE ; rsi = # bytes para un list_t
+    call malloc        ; Pide memoria para un list_t
+
+    ; Inicializa ambos punteros en null
+    mov QWORD [rax + LIST_OFF_FIRST], NULL
+    mov QWORD [rax + LIST_OFF_LAST], NULL
+
+    pop rbp
     ret
 
 listAddFirst:
