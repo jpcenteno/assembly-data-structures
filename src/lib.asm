@@ -233,7 +233,43 @@ auxNewListElem:
     pop rbp
     ret
 
+; void listAddFirst(list_t* l, void* data) {
+; //                RDI        RSI
+;     listElem_t* new = auxNewListElem(data, NULL, l->first);
+;     if (l->first) {
+;         l->first->prev = new;
+;     } else {
+;         l->last = new;
+;     }
+;     l->first = new;
+; }
 listAddFirst:
+    push rbp
+    mov rbp, rsp
+
+    mov rdx, [rdi + LIST_OFF_FIRST]     ; 3er param = 'l->first'
+    push rdi                            ; preservo l
+    sub rsp, 8                          ; balanceo stack
+    mov rdi, rsi                        ; 1er param = 'data'
+    mov rsi, NULL                       ; 2do param = 'null'
+    call auxNewListElem                 ; Creo nuevo elemento
+
+    add rsp, 8
+    pop rdx                             ; rdx = l
+
+    cmp QWORD [rdx + LIST_OFF_FIRST], 0 ; Se fija si la lista es vacia
+    jnz .else_branch
+    mov [rdx + LIST_OFF_LAST], rax      ; l->last = new
+    jmp .endif
+  .else_branch:
+    mov rcx, [rdx + LIST_OFF_FIRST]     ; rcx = l->first
+    mov [rcx + LISTELEM_OFF_PREV], rax  ; l->first->prev = new
+    ; l->first->prev = new
+  .endif:
+
+    mov [rdx + LIST_OFF_FIRST], rax     ; l->first = new
+
+    pop rbp
     ret
 
 listAddLast:

@@ -54,6 +54,27 @@ void test_list(FILE *pfile){
     free(l1);
 
     // void listAddFirst(list_t* l, void* data)
+    int datum1 = 42;
+    int datum2 = 123;
+    list_t* l2 = listNew();
+    listAddFirst(l2, &datum1);
+    // Como tiene 1 solo elem tiene q ser el first y el last
+    assert(l2->first == l2->last);
+    assert(l2->first != NULL);
+    assert(l2->first->data == &datum1); // Dato es correcto
+    // Lista con 2 elementos
+    listAddFirst(l2, &datum2);
+    assert(l2->first != l2->last); // check list_t
+    assert(l2->first->data == &datum2); // Check 1er elem
+    assert(l2->first->prev == NULL);
+    assert(l2->first->next == l2->last);
+    assert(l2->last->data == &datum1); // Check 2do elem
+    assert(l2->last->prev == l2->first);
+    assert(l2->last->next == NULL);
+    free(l2->first); // Libera memoria
+    free(l2->last);
+    free(l2);
+
     // void listAddLast(list_t* l, void* data)
     // void listAdd(list_t* l, void* data, funcCmp_t* fc)
     // void listRemoveFirst(list_t* l, funcDelete_t* fd)
