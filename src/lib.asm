@@ -169,7 +169,7 @@ strPrint:
 
     pop rbp
     ret
-    
+
 listNew:
     ret
 
@@ -214,10 +214,10 @@ nTableNew:
 
 nTableAdd:
     ret
-    
+
 nTableRemoveSlot:
     ret
-    
+
 nTableDeleteSlot:
     ret
 
