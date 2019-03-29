@@ -14,7 +14,7 @@ Funciones de `string`:
 
 Funciones de `list_t`:
 - [X] `list_t* listNew()` (7 Inst.)
-- [ ] `void listAddFirst(list_t* l, void* data)` (21 Inst.)
+- [X] `void listAddFirst(list_t* l, void* data)` (21 Inst.)
 - [ ] `void listAddLast(list_t* l, void* data)` (21 Inst.)
 - [ ] `void listAdd(list_t* l, void* data, funcCmp_t* fc)` (54 Inst.)
 - [ ] `void listRemoveFirst(list_t* l, funcDelete_t* fd)` (16 Inst.)
@@ -67,3 +67,4 @@ Funciones a implementar en `C`:
 ### 2019/03/29
 
 - Implementacion de `listNew`
+- Implementacion de `listAddFirst`
