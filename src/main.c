@@ -22,6 +22,19 @@ void test_string(FILE *pfile){
     assert(s1 != s2);
     free(s2);
 
+    // strConcat
+    char* s4 = "foo";
+    char* s5 = "barbaz";
+    char* s6 = strConcat(s4, s5);
+    assert(strcmp(s6, "foobarbaz") == 0);
+    char* s7 = strConcat("", "");
+    assert(strcmp(s7, "") == 0);
+    char* s8 = strConcat(s6, s4);
+    assert(strcmp(s8, "foobarbazfoo") == 0);
+    free(s6);
+    free(s7);
+    free(s8);
+
     // strDelete
     char* s3 = strClone("asdfg");
     strDelete(s3); // El test es que no leeakee memoria
