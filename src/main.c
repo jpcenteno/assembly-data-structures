@@ -45,6 +45,21 @@ void test_string(FILE *pfile){
 
 }
 
+void test_list(FILE *pfile){
+
+    // list_t* listNew()
+    list_t* l1 = listNew();
+    assert(l1->first == NULL);
+    assert(l1->last  == NULL);
+
+    // void listAddFirst(list_t* l, void* data)
+    // void listAddLast(list_t* l, void* data)
+    // void listAdd(list_t* l, void* data, funcCmp_t* fc)
+    // void listRemoveFirst(list_t* l, funcDelete_t* fd)
+    // void listRemoveLast(list_t* l, funcDelete_t* fd)
+    // void listRemove(list_t* l, void* data, funcCmp_t* fc, funcDelete_t* fd)
+}
+
 void test_n3tree(FILE *pfile){
     
 }
@@ -56,6 +71,7 @@ void test_nTable(FILE *pfile){
 int main (void){
     FILE *pfile = fopen("salida.main.propios.txt","w");
     test_string(pfile);
+    test_list(pfile);
     test_n3tree(pfile);
     test_nTable(pfile);
     fclose(pfile);
