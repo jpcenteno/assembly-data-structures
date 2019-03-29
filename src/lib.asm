@@ -7,6 +7,12 @@ BITS 64
 %define LIST_OFF_LAST  8
 %define LIST_SIZE      16
 
+; Offsets listElem_t
+%define LISTELEM_OFF_DATA 0
+%define LISTELEM_OFF_NEXT 8
+%define LISTELEM_OFF_PREV 16
+%define LISTELEM_SIZE     24
+
 section .rodata
 
 section .text
