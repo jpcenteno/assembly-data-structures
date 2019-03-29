@@ -21,14 +21,14 @@ void strPrint(char* a, FILE *pFile);
 /* List */
 
 typedef struct s_list{
-    struct s_listElem *first;
-    struct s_listElem *last;
+    struct s_listElem *first; // 8 Bytes => offset = 0
+    struct s_listElem *last;  // 8 Bytes => offset = 8
 } list_t;
 
 typedef struct s_listElem{
-    void *data;
-    struct s_listElem *next;
-    struct s_listElem *prev;
+    void *data;              // 8 Bytes => offset = 0
+    struct s_listElem *next; // 8 Bytes => offset = 8
+    struct s_listElem *prev; // 8 Bytes => offset = 16
 } listElem_t;
 
 

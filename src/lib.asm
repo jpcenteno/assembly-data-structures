@@ -1,5 +1,12 @@
 BITS 64
 
+%define NULL 0 ; nullptr
+
+; Offsets list_t
+%define LIST_OFF_FIRST 0
+%define LIST_OFF_LAST  8
+%define LIST_SIZE      16
+
 section .rodata
 
 section .text
