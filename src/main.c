@@ -51,6 +51,7 @@ void test_list(FILE *pfile){
     list_t* l1 = listNew();
     assert(l1->first == NULL);
     assert(l1->last  == NULL);
+    free(l1);
 
     // void listAddFirst(list_t* l, void* data)
     // void listAddLast(list_t* l, void* data)
