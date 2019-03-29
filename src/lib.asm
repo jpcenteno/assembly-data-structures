@@ -199,6 +199,40 @@ listNew:
     pop rbp
     ret
 
+; listElem_t* auxNewListElem(void* data, listElem_t* prev, listElem_t* next) {
+; //RAX                      RDI         RSI               RDX
+;     listElem_t* new = (listElem_t*) malloc(24);
+;     new->data = data;
+;     new->next = next;
+;     new->prev = prev;
+;     return new;
+; }
+auxNewListElem:
+    push rbp
+    mov rbp, rsp
+
+    push rdx                            ; Preservo 'next'
+    push rsi                            ; Preservo 'prev'
+    push rdi                            ; Preservo 'data'
+    sub rsp, 8                          ; Balanceo stack
+
+    mov rdi, LISTELEM_SIZE
+    call malloc                         ; Pido espacio p/ listElem_t
+
+    add rsp, 8
+
+    pop rdx                             ; rdx = data
+    mov [rax + LISTELEM_OFF_DATA], rdx  ; new->data = data
+
+    pop rdx                             ; rdx = prev
+    mov [rax + LISTELEM_OFF_PREV], rdx  ; new->prev = prev
+
+    pop rdx                             ; rdx = prev
+    mov [rax + LISTELEM_OFF_NEXT], rdx  ; new->next = next
+
+    pop rbp
+    ret
+
 listAddFirst:
     ret
 
