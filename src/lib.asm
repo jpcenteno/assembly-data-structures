@@ -262,9 +262,9 @@ listAddFirst:
     mov [rdx + LIST_OFF_LAST], rax      ; l->last = new
     jmp .endif
   .else_branch:
+                                        ; l->first->prev = new
     mov rcx, [rdx + LIST_OFF_FIRST]     ; rcx = l->first
     mov [rcx + LISTELEM_OFF_PREV], rax  ; l->first->prev = new
-    ; l->first->prev = new
   .endif:
 
     mov [rdx + LIST_OFF_FIRST], rax     ; l->first = new
@@ -272,7 +272,47 @@ listAddFirst:
     pop rbp
     ret
 
+; void listAddLast(list_t* l, void* data) {
+; //               RDI        RSI
+;     listElem_t* new = auxNewListElem(data, l->last, NULL);
+;     if (l->first) {
+;         l->last->next = new
+;     } else {
+;         l->first = new
+;     }
+;     l->last = new;
+; }
 listAddLast:
+    push rbp
+    mov rbp, rsp
+
+    push rdi                                ; Preservo l
+    sub rsp, 8                              ; balanceo stack
+
+    mov rax, [rdi + LIST_OFF_LAST]          ; rax = l->last (temporal)
+    mov rdi, rsi                            ; 1er param = data
+    mov rsi, rax                            ; 2do param = l->last
+    mov rdx, NULL                           ; 3er param = NULL
+    call auxNewListElem                     ; auxNewListElem(data, l->last, NULL);
+
+    add rsp, 8
+    pop rdx                                 ; rdx = l
+
+    cmp QWORD [rdx + LIST_OFF_FIRST], NULL  ; if (l->first == NULL)
+    jne .last_elem_exists
+
+    mov [rdx + LIST_OFF_FIRST], rax         ; l->first = new
+
+    jmp .endif                              ; evita caer en guarda else
+  .last_elem_exists:
+                                            ; l->last->next = new
+    mov rcx, [rdx + LIST_OFF_LAST]          ; >   rcx = l->last
+    mov [rcx + LISTELEM_OFF_NEXT], rax      ; >   l->last->next = new
+  .endif:
+
+    mov [rdx + LIST_OFF_LAST], rax          ; l->last = new
+
+    pop rbp
     ret
 
 listAdd:

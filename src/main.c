@@ -76,6 +76,32 @@ void test_list(FILE *pfile){
     free(l2);
 
     // void listAddLast(list_t* l, void* data)
+    {
+        int datum1 = 42;
+        int datum2 = 123;
+        list_t* l = listNew();
+
+        listAddLast(l, &datum1);            // Lista debe ser ahora [42]
+        assert(l->first != NULL);           // Existe ese elemento
+        assert(l->first = l->last);         // Es primero y ultimo
+        assert(l->first->data == &datum1);  // El dato es correcto
+        assert(l->first->next == NULL);     // No tiene next en la cadena
+        assert(l->first->prev == NULL);     // No tiene prev en la cadena
+
+        listAddLast(l, &datum2);            // l = [42, 123]
+        assert(l->first->data == &datum1);  // l[0] == 42
+        assert(l->last->data == &datum2);   // l[1] == 123
+        assert(l->first->prev == NULL);
+        assert(l->last->next == NULL);
+        assert(l->first->next == l->last);
+        assert(l->last->prev == l->first);
+
+        free(l->first);
+        free(l->last);
+        free(l);
+
+    }
+
     // void listAdd(list_t* l, void* data, funcCmp_t* fc)
     // void listRemoveFirst(list_t* l, funcDelete_t* fd)
     // void listRemoveLast(list_t* l, funcDelete_t* fd)
