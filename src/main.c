@@ -43,6 +43,19 @@ void test_string(FILE *pfile){
     strPrint("mambo\n", pfile);
     strPrint("mango\n", pfile);
 
+    // strCmp
+    {
+        char* s1 = "aba";
+        char* s2 = "aca";
+        assert(strCmp(s1, s2) == 1);
+        assert(strCmp(s2, s1) == -1);
+        assert(strCmp(s1, s1) == 0);
+        assert(strCmp(s2, s2) == 0);
+
+        assert(strCmp("", s2) == 1);
+        assert(strCmp("", "") == 0);
+    }
+
 }
 
 void test_list(FILE *pfile){

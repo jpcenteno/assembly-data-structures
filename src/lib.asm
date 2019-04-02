@@ -102,7 +102,39 @@ strClone:
     ret
 
 strCmp:
+    push rbp
+    mov rbp, rsp
+
+  .loop:
+
+    mov dl, [rsi]
+    cmp [rdi], dl
+    jl .ret_lt                  ; a < b
+    jg .ret_gt                  ; a > b
+
+    cmp BYTE [rdi], 0           ; null terminator?
+    je .ret_eq                  ; Ambas terminaron iguales
+
+    inc rdi                     ; Proximo char `a`
+    inc rsi                     ; Proximo char `b`
+    jmp .loop                   ; Vuelve a comparar
+
+
+  .ret_lt:                      ; a < b
+    mov eax, 1                  ; Return 1
+    jmp .end                    ; Fin
+
+  .ret_gt:                      ; a > b
+    mov eax, -1                 ; return -1
+    jmp .end                    ; Fin
+
+  .ret_eq:                      ; a == b
+    xor eax, eax                ; Return 0
+
+  .end:
+    pop rbp
     ret
+
 
 ; char* strConcat(char* a, char* b);
 ; RAX             RDI      RSI
