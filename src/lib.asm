@@ -324,7 +324,71 @@ listRemove:
 listRemoveFirst:
     ret
 
+; void listRemoveLast(list_t* l, funcDelete_t* fd) {
+;                     RDI         RSI
+;   listElem_t* e = l->last
+;   l->last = e->prev           // Corrijo 'l'
+;   aux_list_elem_remove(e, fd) // Borro 'e'
+; }
 listRemoveLast:
+    push rbp
+    mov rbp, rsp
+
+    mov rax, [rdi + LIST_OFF_LAST]         ; rax = e = l->last
+    mov rdx, [rax + LISTELEM_OFF_PREV]     ; rdx = (l->last)->prev
+    mov [rdi + LIST_OFF_LAST], rdx         ; l->last = (l->last)->prev
+
+    cmp rdx, NULL                          ; si 'e->prev == NULL', estamos vaciando la lista
+    jne .remove_elem                       ; si no estamos vaciando, no toca l->first
+    mov QWORD [rdi + LIST_OFF_FIRST], NULL ; l->first = NULL
+
+  .remove_elem:
+    mov rdi, rax                           ; 1er arg = e
+    call aux_list_elem_remove              ; aux_list_elem_remove(e, fd)
+
+    pop rbp
+    ret
+
+; void aux_list_elem_remove(listElem_t* e, funcDelete_t* fd)
+;                           RDI            RSI
+; Si 'fd != 0', usa la funcion. No especifica que quieren que hagamos cuando
+; 'fd == 0' no borro el dato asumiendo que si lo quiero borrar con 'free',
+; puedo pasar 'free'
+aux_list_elem_remove:
+    push rbp
+    mov rbp, rsp
+
+    mov rax, [rdi + LISTELEM_OFF_PREV]  ; rax = e->prev
+    mov rdx, [rdi + LISTELEM_OFF_NEXT]  ; rax = e->next
+
+  .fix_prev:
+    cmp rax, NULL                       ; null?(e->prev)
+    je .fix_next                        ; Si es null saltea
+    mov [rax + LISTELEM_OFF_NEXT], rdx  ; (e->prev)->next = (e->next)
+
+  .fix_next:
+    cmp rdx, NULL                       ; null?(e->next)
+    je .delete_data                     ; Si es null saltea
+    mov [rdx + LISTELEM_OFF_PREV], rax  ; (e->next)->prev = (e->prev)
+
+  .delete_data:                         ; borra e->data
+
+    cmp rsi, NULL                       ; null?(fd)
+    je .delete_elem                     ; Solo borra e->data si 'fd != null'
+
+    push rdi                            ; preservo 'e'
+    sub rsp, 8                          ; Balancea stack
+
+    mov rdi, [rdi + LISTELEM_OFF_DATA]  ; 1er arg = e->data
+    call rsi                            ; fd(e->data)
+
+    add rsp, 8                          ; Saca basura del stack
+    pop rdi                             ; Restaura '1er arg = e'
+
+  .delete_elem:
+    call free                           ; 'free(e)'
+
+    pop rbp
     ret
 
 listDelete:

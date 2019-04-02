@@ -105,6 +105,28 @@ void test_list(FILE *pfile){
     // void listAdd(list_t* l, void* data, funcCmp_t* fc)
     // void listRemoveFirst(list_t* l, funcDelete_t* fd)
     // void listRemoveLast(list_t* l, funcDelete_t* fd)
+    {
+
+        char *s1 = strcpy(malloc(4), "foo");
+        char *s2 = strcpy(malloc(4), "bar");
+        list_t* l = listNew();
+        listAddLast(l, s1);
+        listAddLast(l, s2); // l = ["foo", "bar"]
+
+        listRemoveLast(l, NULL); // l = ["foo"] y s2 no fue liberado
+        assert(l->first == l->last);
+        assert(l->first->data == s1);
+        assert(l->first->prev == NULL);
+        assert(l->first->next == NULL);
+
+        listRemoveLast(l, free); // l = []
+        assert(l->last == NULL);
+        assert(l->first == NULL);
+
+        free(s2); // Si s2 fue liberado, segfaultea
+        free(l);
+
+    }
     // void listRemove(list_t* l, void* data, funcCmp_t* fc, funcDelete_t* fd)
 }
 
