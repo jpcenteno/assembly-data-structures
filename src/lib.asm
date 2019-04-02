@@ -376,6 +376,9 @@ listRemoveFirst:
 ;                     RDI         RSI
 ;   listElem_t* e = l->last
 ;   l->last = e->prev           // Corrijo 'l'
+;   if (e->prev == NULL) {
+;       l->first = NULL
+;   }
 ;   aux_list_elem_remove(e, fd) // Borro 'e'
 ; }
 listRemoveLast:
