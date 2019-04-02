@@ -162,6 +162,69 @@ void test_list(FILE *pfile){
 
     }
     // void listRemove(list_t* l, void* data, funcCmp_t* fc, funcDelete_t* fd)
+    {
+
+        char *s1 = strcpy(malloc(4), "foo");
+        char *s2 = strcpy(malloc(4), "bar");
+        char *s3 = strcpy(malloc(4), "baz");
+        list_t* l = listNew();
+        listAddLast(l, s1);
+        listAddLast(l, s2); // l = ["foo", "bar"]
+        listAddLast(l, s3); // l = ["foo", "bar", "baz"]
+
+        listRemove(l, "bar", (funcCmp_t*) strCmp, (funcDelete_t*) strDelete); // l = [foo, baz]
+        assert(l->first->data == s1);
+        assert(l->first->prev == NULL);
+        assert(l->first->next == l->last);
+        assert(l->last->data == s3);
+        assert(l->last->prev == l->first);
+        assert(l->last->next == NULL);
+
+        listRemove(l, "baz", (funcCmp_t*) strCmp, (funcDelete_t*) strDelete); // l = [foo]
+        assert(l->first->data == s1);
+        assert(l->first->prev == NULL);
+        assert(l->first->next == NULL);
+        assert(l->first == l->last);
+
+        listRemove(l, "fiz", (funcCmp_t*) strCmp, (funcDelete_t*) strDelete); // l = [foo]
+        assert(l->first->data == s1);
+        assert(l->first->prev == NULL);
+        assert(l->first->next == NULL);
+        assert(l->first == l->last);
+
+        listRemove(l, "foo", (funcCmp_t*) strCmp, NULL); // l = [] y s1 no fue liberado
+        assert(l->first == NULL);
+        assert(l->last  == NULL);
+
+        listRemove(l, "foo", (funcCmp_t*) strCmp, (funcDelete_t*) strDelete); // l = []
+        assert(l->first == NULL);
+        assert(l->last  == NULL);
+
+        strDelete(s1);
+        free(l);
+    }
+    {
+        char *s1 = strcpy(malloc(4), "foo");
+        char *s2 = strcpy(malloc(4), "bar");
+        char *s3 = strcpy(malloc(4), "foo");
+        list_t* l = listNew();
+        listAddLast(l, s1);
+        listAddLast(l, s2); // l = ["foo", "bar"]
+        listAddLast(l, s3); // l = ["foo", "bar", "foo"]
+
+        listRemove(l, "foo", (funcCmp_t*) strCmp, (funcDelete_t*) strDelete); // l = [bar]
+        assert(l->first == l->last);
+        assert(l->first->data == s2);
+        assert(l->first->next == NULL);
+        assert(l->first->prev == NULL);
+
+        listRemove(l, "bar", (funcCmp_t*) strCmp, (funcDelete_t*) strDelete); // l = []
+        assert(l->first == NULL);
+        assert(l->last  == NULL);
+
+        free(l);
+
+    }
 }
 
 void test_n3tree(FILE *pfile){

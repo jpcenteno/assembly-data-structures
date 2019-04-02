@@ -350,7 +350,72 @@ listAddLast:
 listAdd:
     ret
 
+; void listRemove(list_t* l, void* data, funcCmp_t* fc, funcDelete_t* fd);
+;                 RDI        RSI         RDX            RCX
 listRemove:
+    push rbp
+    mov rbp, rsp
+
+    push r12                            ; Pusheo variables que debo preservar
+    push r13
+    push r14
+    push r15
+    push rbx                            ; Guarda que el stack esta desbalanceado
+
+                                        ; uso variables preservadas xq se hacen muchos calls
+    mov r12, rdi                        ; r12 = l
+    mov r13, rsi                        ; r13 = data
+    mov r14, rdx                        ; r14 = fc
+    mov r15, rcx                        ; r15 = fd
+
+    mov rbx, [r12 + LIST_OFF_FIRST]     ; e = l->first
+
+                                        ; while (e != NULL)
+    jmp .cmp                            ; jmp a guarda del loop
+  .loop:                                ; Cuerpo del loop
+    mov rdx, [rbx + LISTELEM_OFF_NEXT]  ; e_next = e->next
+    push rdx
+
+                                        ; 'if (fc(e->data, data) == 0)':
+    mov rdi, [rbx+LISTELEM_OFF_DATA]    ; 1er arg = e->data
+    mov rsi, r13                        ; 2do arg = data
+    call r14                            ; fc(e->data, data)
+    cmp rax, 0                          ; fc(e->data, data) == 0
+    jne .endif
+  .then:                                ; Procede a borrar el elemento
+
+  .fix_l_first:                         ; if (l->first == e)
+    cmp [r12+LIST_OFF_FIRST], rbx       ; ZF = l->first == e
+    jne .fix_l_last                     ; si no es el primero, no hay que arreglarlo
+    mov rax, [rbx + LISTELEM_OFF_NEXT]  ; 'rax = e->next'
+    mov [r12+LIST_OFF_FIRST], rax       ; l->first = (e->next)
+
+  .fix_l_last:                          ; if (l->last == e)
+    cmp [r12+LIST_OFF_LAST], rbx        ; ZF = 'l->last == e'
+    jne .remove_e                       ; Si no es el ultimo, no toca l->last
+    mov rax, [rbx + LISTELEM_OFF_PREV]  ; rax = e->prev
+    mov [r12+LIST_OFF_LAST], rax        ; l->last = e->prev
+
+  .remove_e:                            ; procede a borrar e
+    mov rdi, rbx                        ; 1er arg = e
+    mov rsi, r15                        ; 2do arg = fd
+    call aux_list_elem_remove           ; aux_list_elem_remove(e, fd)
+
+  .endif:                               ; fin del 'if (fc(e->data, data) == 0)'
+
+    pop rdx                             ; rdx = e_next
+    mov rbx, rdx                        ; e = e_next
+  .cmp:                                 ; guarda del loop
+    cmp rbx, NULL                       ; e == null?
+    jne .loop                           ; while(e != null)
+
+    pop rbx                             ; Restauro variables preservadas
+    pop r15
+    pop r14
+    pop r13
+    pop r12
+
+    pop rbp
     ret
 
 listRemoveFirst:
