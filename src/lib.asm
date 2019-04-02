@@ -354,6 +354,22 @@ listRemove:
     ret
 
 listRemoveFirst:
+    push rbp
+    mov rbp, rsp
+
+    mov rax, [rdi+LIST_OFF_FIRST]       ; rax = l->first
+    mov rdx, [rax+LISTELEM_OFF_NEXT]    ; rdx = (l->first)->next
+    mov [rdi+LIST_OFF_FIRST], rdx       ; (l->first) = (l->first)->next
+
+    cmp rdx, NULL                       ; si 'e->next == null' va a vaciar lista
+    jne .remove                         ; Si no es null, no hay que tocar 'e->last'
+    mov QWORD [rdi+LIST_OFF_LAST], NULL ; l = []
+
+  .remove:
+    mov rdi, rax                        ; 1st arg = e
+    call aux_list_elem_remove           ; aux_list_elem_remove(e, fd)
+
+    pop rbp
     ret
 
 ; void listRemoveLast(list_t* l, funcDelete_t* fd) {
