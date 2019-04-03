@@ -7,7 +7,7 @@ Joaquin Perez Centeno (699/16)
 Funciones de `string`:
 - [X] `char* strClone(char* a)` (19 Inst.)
 - [X] `uint32_t strLen(char* a)` (7 Inst.)
-- [ ] `int32_t strCmp(char* a, char* b)` (25 Inst.)
+- [X] `int32_t strCmp(char* a, char* b)` (25 Inst.)
 - [X] `char* strConcat(char* a, char* b)` (42 Inst.)
 - [X] `void strDelete(char* a)` (1 Inst.)
 - [X] `void strPrint(char* a, FILE *pFile)` (7 Inst.)
@@ -16,10 +16,10 @@ Funciones de `list_t`:
 - [X] `list_t* listNew()` (7 Inst.)
 - [X] `void listAddFirst(list_t* l, void* data)` (21 Inst.)
 - [X] `void listAddLast(list_t* l, void* data)` (21 Inst.)
-- [ ] `void listAdd(list_t* l, void* data, funcCmp_t* fc)` (54 Inst.)
-- [ ] `void listRemoveFirst(list_t* l, funcDelete_t* fd)` (16 Inst.)
-- [ ] `void listRemoveLast(list_t* l, funcDelete_t* fd)` (16 Inst.)
-- [ ] `void listRemove(list_t* l, void* data, funcCmp_t* fc, funcDelete_t* fd)` (49 Inst.)
+- [X] `void listAdd(list_t* l, void* data, funcCmp_t* fc)` (54 Inst.)
+- [X] `void listRemoveFirst(list_t* l, funcDelete_t* fd)` (16 Inst.)
+- [X] `void listRemoveLast(list_t* l, funcDelete_t* fd)` (16 Inst.)
+- [X] `void listRemove(list_t* l, void* data, funcCmp_t* fc, funcDelete_t* fd)` (49 Inst.)
 
 Funciones de `n3tree_t`:
 - [ ] `n3tree_t* n3treeNew()` (6 Inst.)
@@ -68,3 +68,11 @@ Funciones a implementar en `C`:
 
 - Implementacion de `listNew`
 - Implementacion de `listAddFirst`
+
+### 2019/04/02
+
+- Implementacion de `listRemoveLast`
+- Implementacion de `strCmp`
+- Implementacion de `listRemoveFirst`
+- Implementacion de `listRemove`
+- Implementacion de `listAdd`
