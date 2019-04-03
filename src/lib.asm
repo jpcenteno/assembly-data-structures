@@ -347,7 +347,74 @@ listAddLast:
     pop rbp
     ret
 
+; void listAdd(list_t* l, void* data, funcCmp_t* fc)
+;              RDI        RSI         RDX
 listAdd:
+    push rbp
+    mov rbp, rsp
+
+    push rbx                              ; guardo registros preservados
+    push r12
+    push r13
+    push r14
+    push r15
+    sub rsp, 8                            ; balanceo stack
+
+    mov rbx, rdi                          ; rbx = l
+    mov r12, rsi                          ; r12 = data
+    mov r13, rdx                          ; r13 = fc
+
+    mov r14, [rbx + LIST_OFF_FIRST]       ; e_next: r14 = l->first
+    mov r15, NULL                         ; e_prev: r15 = NULL
+
+    jmp .cmp
+  .loop:
+
+    mov r15, r14                          ; e_prev = e_next
+    mov r14, [r14 + LISTELEM_OFF_NEXT]    ; e_next = e_next->next
+
+  .cmp:
+    cmp r14, NULL                         ; e_next == NULL (fin de la lista)
+    je .add                               ; Si se termina ahi la lista lo pone ahi
+    mov rdi, [r14 + LISTELEM_OFF_DATA]    ; 1er arg = 'e_next->data'
+    mov rsi, r12                          ; 2do arg = data
+    call r13                              ; cmp(data, e->data)
+    cmp rax, 1                            ; data < e->data
+    je .loop
+
+  .add:
+
+    mov rdi, r12                          ; 1st arg = data
+    mov rsi, r15                          ; 2nd arg = e_prev
+    mov rdx, r14                          ; 3rd arg = e_next
+    call auxNewListElem                   ; auxNewListElem(data, e_prev, e_next)
+
+    cmp r15, NULL                         ; si e_prev == null. Se puso al principio
+    je .fix_l_first                       ; 
+  .fix_e_prev:                            ; Arregla e_prev->next
+    mov [r15+LISTELEM_OFF_NEXT], rax      ; e_prev->next = new
+    jmp .endif1
+  .fix_l_first:                           ; arregla l->first porque se puso al principio
+    mov [rbx+LIST_OFF_FIRST], rax         ; l->first = new
+  .endif1:
+
+    cmp r14, NULL                         ; si e_next == null, se puso al final
+    je .fix_l_last
+  .fix_e_next:                            ; Se puso antes de 'e_next'. Arreglo 'e_next->prev'
+    mov [r14 + LISTELEM_OFF_PREV], rax    ; e_next->prev = new
+    jmp .endif2
+  .fix_l_last:                            ; Se puso al final. arreglo l->last
+    mov [rbx + LIST_OFF_LAST], rax        ; l->last = new
+  .endif2:
+
+    add rsp, 8                            ; borro basura del stack
+    pop rbx                               ; Restauro registros preservadas
+    pop r15
+    pop r14
+    pop r13
+    pop r12
+
+    pop rbp
     ret
 
 ; void listRemove(list_t* l, void* data, funcCmp_t* fc, funcDelete_t* fd);

@@ -116,6 +116,43 @@ void test_list(FILE *pfile){
     }
 
     // void listAdd(list_t* l, void* data, funcCmp_t* fc)
+    {
+        list_t* l = listNew();
+        char* s1 = "bar";
+        char* s2 = "baz";
+        char* s3 = "foo";
+
+        listAdd(l, s2, (funcCmp_t*) strCmp); // l = [baz]
+        assert(l->first == l->last);
+        assert(l->first->data == s2);
+        assert(l->first->next == NULL);
+        assert(l->first->prev == NULL);
+
+        listAdd(l, s1, (funcCmp_t*) strCmp); // l = [bar, baz]
+        assert(l->first->data == s1);
+        assert(l->first->prev == NULL);
+        assert(l->first->next == l->last);
+        assert(l->last->data == s2);
+        assert(l->last->prev == l->first);
+        assert(l->last->next == NULL);
+
+        listAdd(l, s3, (funcCmp_t*) strCmp); // l = [bar, baz, foo]
+        assert(l->first->data == s1);
+        assert(l->first->prev == NULL);
+        assert(l->first->next == l->last->prev);
+        assert(l->first->next->data == s2);
+        assert(l->first->next->prev == l->first);
+        assert(l->first->next->next == l->last);
+        assert(l->last->data == s3);
+        assert(l->last->prev == l->first->next);
+        assert(l->last->next == NULL);
+
+        listRemoveFirst(l, (funcDelete_t*) NULL); // no hace free porque son estaticas
+        listRemoveFirst(l, (funcDelete_t*) NULL);
+        listRemoveFirst(l, (funcDelete_t*) NULL);
+        free(l);
+
+    }
     // void listRemoveFirst(list_t* l, funcDelete_t* fd)
     {
         char *s1 = strcpy(malloc(4), "foo"); // en el heap
