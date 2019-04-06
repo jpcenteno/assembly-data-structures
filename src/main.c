@@ -299,6 +299,35 @@ void test_list(FILE *pfile){
     // void listPrint(list_t* l, FILE *pFile, funcPrint_t* fp)
     // void listPrintReverse(list_t* l, FILE *pFile, funcPrint_t* fp)
 }
+
+/** Verifica 'n->center'
+ *
+ * Si La estructura es incorrecta falla un assert. Crashea
+ * Si la estructura es correcta y coincide con n->data devuelve el tamano de n->center
+ */
+int32_t aux_check_n3treeelement_center(n3treeElem_t* n, funcCmp_t* fc) {
+
+
+    const listElem_t* last = n->center->last;
+
+    listElem_t* e = n->center->first;
+    listElem_t* prev = NULL; // Se usa para chequear e->prev
+    int32_t counter = 0;
+    while (e != NULL) {
+
+        counter++;
+
+        assert(fc(e->data, n->data) == 0);    // El dato es correcto
+        assert(e->prev == prev);              // El enlace al nodo anterior es correcto
+        assert(e->next != NULL || e == last); // Solo puede terminar si es coherente con center->last
+
+        // Avanza al proximo nodo de la lista
+        prev = e;
+        e = e->next;
+
+    }
+
+    return counter;
 }
 
 void test_n3tree(FILE *pfile){
@@ -310,6 +339,81 @@ void test_n3tree(FILE *pfile){
         free(t);
     }
     // void n3treeAdd(n3tree_t* t, void* data, funcCmp_t* fc);
+    {
+
+        char *s1 = strcpy(malloc(2), "a");
+        char *s2 = strcpy(malloc(2), "b");
+        char *s3 = strcpy(malloc(2), "c");
+        char *s4 = strcpy(malloc(2), "b");
+        char *s5 = strcpy(malloc(2), "b");
+
+        n3tree_t* t = n3treeNew();
+
+        // Caso add nodo a tree vacio
+        n3treeAdd(t, s2, (funcCmp_t*) strCmp);
+        assert(t->first != NULL);
+        assert(strCmp(t->first->data, s2) == 0); // raiz->data == s2
+        assert(t->first->left == NULL);
+        assert(aux_check_n3treeelement_center(t->first, (funcCmp_t*) strCmp) == 0);
+        assert(t->first->right == NULL);
+
+        // caso add varios elementos a nodo ya existente
+        n3treeAdd(t, s4, (funcCmp_t*) strCmp);
+        n3treeAdd(t, s5, (funcCmp_t*) strCmp);
+        assert(t->first != NULL);
+        assert(strCmp(t->first->data, s2) == 0); // raiz->data == s2
+        assert(t->first->left == NULL);
+        assert(aux_check_n3treeelement_center(t->first, (funcCmp_t*) strCmp) == 2);
+        assert(t->first->right == NULL);
+
+        // Caso add nodo a la izquierda de otro nodo
+        n3treeAdd(t, s1, (funcCmp_t*) strCmp);
+        assert(t->first != NULL);
+        assert(strCmp(t->first->data, s2) == 0); // raiz->data == s2
+        assert(aux_check_n3treeelement_center(t->first, (funcCmp_t*) strCmp) == 2);
+        assert(t->first->right == NULL);
+        assert(t->first->left != NULL);
+        assert(strCmp(t->first->left->data, "a") == 0);
+        assert(aux_check_n3treeelement_center(t->first->left, (funcCmp_t*) strCmp) == 0);
+        assert(t->first->left->left == NULL);
+        assert(t->first->left->right == NULL);
+
+        // Caso add nodo a la derecha de otro nodo
+        n3treeAdd(t, s3, (funcCmp_t*) strCmp);
+        // Check puntero a raiz
+        assert(t->first != NULL);                                                   // Existe nodo raiz
+        // check raiz
+        assert(strCmp(t->first->data, "b") == 0);                                   // raiz->data == "b"
+        assert(aux_check_n3treeelement_center(t->first, (funcCmp_t*) strCmp) == 2); // La lista tiene 2 elems iguales a "b"
+        assert(t->first->left  != NULL);                                            // Existe nodo izdo
+        assert(t->first->right != NULL);                                            // Existe nodo dho
+        // Check rama izda
+        assert(strCmp(t->first->left->data, "a") == 0);                             // ramaizda->data == "a"
+        assert(aux_check_n3treeelement_center(t->first->left, (funcCmp_t*) strCmp) == 0); // 0 elementos iguales a "a"
+        assert(t->first->left->left  == NULL);                                      // no existe nodo izdo
+        assert(t->first->left->right == NULL);                                      // no existe nodo dho
+        // check rama dcha
+        assert(strCmp(t->first->right->data, "c") == 0);                             // ramaizda->data == "c"
+        assert(aux_check_n3treeelement_center(t->first->right, (funcCmp_t*) strCmp) == 0); // 0 elementos iguales a "c"
+        assert(t->first->right->left  == NULL);                                      // no existe nodo izdo
+        assert(t->first->right->right == NULL);                                      // no existe nodo dho
+
+        // Limpieza
+
+        listDelete(t->first->right->center, (funcDelete_t*) strDelete);
+        strDelete(t->first->right->data);
+        free(t->first->right);
+
+        listDelete(t->first->left->center, (funcDelete_t*) strDelete);
+        strDelete(t->first->left->data);
+        free(t->first->left);
+
+        listDelete(t->first->center, (funcDelete_t*) strDelete);
+        free(t->first->data);
+        free(t->first);
+        free(t);
+
+    }
     // void n3treeRemoveEq(n3tree_t* t, funcDelete_t* fd);
     // void n3treeDelete(n3tree_t* t, funcDelete_t* fd);
     // void n3treePrint(n3tree_t* t, FILE *pFile, funcPrint_t* fp);

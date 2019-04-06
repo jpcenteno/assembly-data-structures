@@ -648,7 +648,137 @@ n3treeNew:
     pop rbp
     ret
 
+; n3treeElem_t* aux_new_n3treeElem(void* data)
+;                                  RDI
+aux_new_n3treeElem:
+    push rbp
+    mov rbp, rsp
+
+    push rdi                              ; preservo data
+    sub rsp, 8                            ; balanceo stack
+
+    call listNew                          ; rax = ptr a nueva lista vacia
+
+    ; mov rsp, rax                        ; Sobreescribo basura stack con addr nueva list FIXME usa esto si funciona
+    add rsp, 8                            ; saco basura stack
+    push rax                              ; preservo nueva list
+
+    mov rdi, N3TREEELEM_SIZE              ; Pido memoria para un n3treeElem_t
+    call malloc
+
+    mov QWORD [rax + N3TREEELEM_OFF_LEFT], NULL ; new->left es NULL
+    mov QWORD [rax + N3TREEELEM_OFF_RIGHT], NULL ; new->right es NULL
+
+    pop rdx                                ; rdx = addr lista vacia
+    mov [rax + N3TREEELEM_OFF_CENTER], rdx ; new->center apunta a lista vacia
+
+    pop rdx                                ; rdx = data
+    mov [rax + N3TREEELEM_OFF_DATA], rdx   ; new->data = data
+
+    ; Devuelve el address del nuevo n3treeElem_t que fue creado.
+
+    pop rbp
+    ret
+
+; void n3treeAdd(n3tree_t* t, void* data, funcCmp_t* fc);
+;                RDI          RSI         RDX
 n3treeAdd:
+    push rbp
+    mov rbp, rsp
+
+    push r12                                ; esta funcion hace muchos
+    push r13                                ; llamados recursivos, por lo que
+    push r14                                ; lo mejor es preservar en registros
+    push r15                                ; preservados.
+
+    ; FIXME si no se usa r15, no lo pushees
+
+    mov r12, rdi                            ; r12 = t
+    mov r13, rsi                            ; r13 = data
+    mov r14, rdx                            ; r14 = fc
+
+    cmp QWORD [r12 + N3TREE_OFF_FIRST], NULL ; Si el arbol es vacio
+    je .write_empty
+
+    mov r12, [r12 + N3TREE_OFF_FIRST]       ; r12 = raiz(t)
+
+  .loop:
+
+    ; fc(data, n->data)
+    mov rdi, r13                            ; 1er arg = data
+    mov rsi, [r12 + N3TREEELEM_OFF_DATA]    ; 2do arg = n->data
+    call r14                                ; fc(data, n->data)
+
+    cmp rax, 0                              ; si resultado es EQ
+    je .write_eq                            ; salta a escribir el dato en 'n'
+
+    cmp rax, 1                              ; si el resultado es LT
+    je .caso_lt                             ; Salta si el resultado es 1 > 0
+
+  .caso_gt:
+    cmp QWORD [r12 + N3TREEELEM_OFF_RIGHT], NULL ; si no hay nodo donde avanzar
+    je .write_gt                                 ; crea nodo a la derecha para el dato
+    mov r12, [r12 + N3TREEELEM_OFF_RIGHT],       ; r12: 'n = n->right'
+    jmp .loop
+
+  .caso_lt: ; (data < n->data)
+    cmp QWORD [r12 + N3TREEELEM_OFF_LEFT], NULL ; Si no hay nodo donde avanzar
+    je .write_lt                                ; Crea un nodo a la izquierda para el dato
+    mov r12, [r12 + N3TREEELEM_OFF_LEFT]        ; r12: 'n = n->left'
+    jmp .loop
+
+    ; Fin del loop que recorre arbol  ------
+
+    ; Cuando se encuentra un nodo 'n' cuyo dato 'n->data == data', se escribe
+    ; 'data' en la lista 'n->center'
+    ; Asume 'r12 = n', 'r13 = data'
+  .write_eq:
+    ; Pongo el dato en la lista del nodo
+    mov rdi, [r12 + N3TREEELEM_OFF_CENTER]  ; 1er arg = n->center
+    mov rsi, r13                            ; 2do arg = data
+    call listAddFirst                       ; listAddFirst(n->center, data)
+    jmp .end
+
+    ; Cuando se encuentra un nodo 'n' tal que 'data < n->data' pero
+    ; 'n->left = NULL', se debe crear un nuevo nodo y apuntarlo desde n->left
+    ; Asume 'r12 = n', 'r13 = data'
+  .write_lt:
+    ; Crea un nodo 'new' con 'data'
+    mov rdi, r13                            ; 1er arg = data
+    call aux_new_n3treeElem                 ; aux_new_n3treeElem(data)
+    ; Lo apunta desde 'n'
+    mov [r12 + N3TREEELEM_OFF_LEFT], rax    ; n->left = new
+    jmp .end                                ; Termina algoritmo
+
+    ; Cuando se encuentra un nodo 'n' tal que 'n->data < data' pero
+    ; 'n->right = NULL', se debe crear un nuevo nodo y apuntarlo desde n->right
+    ; Asume 'r12 = n', 'r13 = data'
+  .write_gt:
+    ; Crea un nodo 'new' con 'data'
+    mov rdi, r13                            ; 1er arg = data
+    call aux_new_n3treeElem                 ; aux_new_n3treeElem(data)
+    ; Lo apunta desde 'n'
+    mov [r12 + N3TREEELEM_OFF_RIGHT], rax   ; n->right = new
+    jmp .end                                ; Termina algoritmo
+
+    ; Cuando el arbol esta vacio, se debe crear un nodo 'new' y apuntarlo en
+    ; 't->first'.
+    ; Espera recibir 'r12 = t', 'r13 = data'
+  .write_empty:
+    ; Crea un nodo 'new' con 'data'
+    mov rdi, r13                            ; 1er arg = data
+    call aux_new_n3treeElem                 ; aux_new_n3treeElem(data)
+    mov [r12 + N3TREE_OFF_FIRST], rax       ; n->first = new
+    jmp .end
+
+  .end:
+
+    pop r15
+    pop r14
+    pop r13
+    pop r12
+
+    pop rbp
     ret
 
 n3treeRemoveEq:
