@@ -13,6 +13,10 @@ BITS 64
 %define LISTELEM_OFF_PREV 16
 %define LISTELEM_SIZE     24
 
+; Offsets n3tree_t
+%define N3TREE_OFF_FIRST 0
+%define N3TREE_SIZE 8
+
 section .rodata
 
 section .text
@@ -581,6 +585,15 @@ listPrint:
     ret
 
 n3treeNew:
+    push rbp
+    mov rbp, rsp
+
+    mov rdi, N3TREE_SIZE  ; 1arg tam en bytes de un n3tree_t
+    call malloc           ; pido mem para hacer un n3tree_t
+
+    mov QWORD [rax + N3TREE_OFF_FIRST], NULL ; Inicializo puntero first
+
+    pop rbp
     ret
 
 n3treeAdd:

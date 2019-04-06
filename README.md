@@ -22,7 +22,7 @@ Funciones de `list_t`:
 - [X] `void listRemove(list_t* l, void* data, funcCmp_t* fc, funcDelete_t* fd)` (49 Inst.)
 
 Funciones de `n3tree_t`:
-- [ ] `n3tree_t* n3treeNew()` (6 Inst.)
+- [X] `n3tree_t* n3treeNew()` (6 Inst.)
 - [ ] `void n3treeAdd(n3tree_t* t, void* data, funcCmp_t* fc)` (47 Inst.)
 - [ ] `void n3treeRemoveEq(n3tree_t* t, funcDelete_t* fd)` (29 Inst.)
 - [ ] `void n3treeDelete(n3tree_t* t, funcDelete_t* fd)` (33 Inst.)
@@ -76,3 +76,7 @@ Funciones a implementar en `C`:
 - Implementacion de `listRemoveFirst`
 - Implementacion de `listRemove`
 - Implementacion de `listAdd`
+
+### 2019/04/06
+
+- Implementacion de `n3treeNew`

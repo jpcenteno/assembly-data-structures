@@ -265,7 +265,18 @@ void test_list(FILE *pfile){
 }
 
 void test_n3tree(FILE *pfile){
-    
+
+    // n3tree_t* n3treeNew();
+    {
+        n3tree_t* t = n3treeNew();
+        assert(t->first == NULL);
+        free(t);
+    }
+    // void n3treeAdd(n3tree_t* t, void* data, funcCmp_t* fc);
+    // void n3treeRemoveEq(n3tree_t* t, funcDelete_t* fd);
+    // void n3treeDelete(n3tree_t* t, funcDelete_t* fd);
+    // void n3treePrint(n3tree_t* t, FILE *pFile, funcPrint_t* fp);
+
 }
 
 void test_nTable(FILE *pfile){
