@@ -262,6 +262,43 @@ void test_list(FILE *pfile){
         free(l);
 
     }
+    // void listDelete(list_t* l, funcDelete_t* fd)
+    {
+        list_t* l = listNew();
+        listDelete(l, NULL);
+    }
+    {   // Caso sin borrar elementos
+
+        char *s1 = strcpy(malloc(4), "foo");
+        char *s2 = strcpy(malloc(4), "bar");
+        char *s3 = strcpy(malloc(4), "foo");
+        list_t* l = listNew();
+        listAddLast(l, s1);
+        listAddLast(l, s2); // l = ["foo", "bar"]
+        listAddLast(l, s3); // l = ["foo", "bar", "foo"]
+
+        listDelete(l, NULL);
+        free(s1);
+        free(s2);
+        free(s3);
+
+    }
+    {
+
+        char *s1 = strcpy(malloc(4), "foo");
+        char *s2 = strcpy(malloc(4), "bar");
+        char *s3 = strcpy(malloc(4), "foo");
+        list_t* l = listNew();
+        listAddLast(l, s1);
+        listAddLast(l, s2); // l = ["foo", "bar"]
+        listAddLast(l, s3); // l = ["foo", "bar", "foo"]
+
+        listDelete(l, (funcDelete_t*) strDelete);
+
+    }
+    // void listPrint(list_t* l, FILE *pFile, funcPrint_t* fp)
+    // void listPrintReverse(list_t* l, FILE *pFile, funcPrint_t* fp)
+}
 }
 
 void test_n3tree(FILE *pfile){

@@ -578,7 +578,52 @@ aux_list_elem_remove:
     pop rbp
     ret
 
+; void listDelete(list_t* l, funcDelete_t* fd)
+;                 RDI        RSI
 listDelete:
+    push rbp
+    mov rbp, rsp
+
+    push r12
+    push r13
+
+    mov r12, [rdi + LIST_OFF_FIRST]  ; r12 = l->first
+    mov r13, rsi                     ; r13 = fd
+
+    ; Borro 'l' no la necesito mas
+    call free                        ; free(l)
+
+    ; Recorro la lista borrando elemento por elemento
+    ; Invariante: ( r12 = e && r13 = fd)
+    jmp .cmp
+  .loop:                             ; borra proximo elemento
+
+
+
+  .loop_libera_data:                      ; Borra 'e->data' de ser necesario
+
+    cmp r13, NULL                         ; Se fija si hay una 'fd'
+    je .loop_free_e                       ; Si 'fd == NULL' saltea este paso
+
+    mov rdi, [r12 + LISTELEM_OFF_DATA]    ; 1er arg = dato
+    call r13                              ; fd(dato)
+
+
+
+  .loop_free_e:                           ; libera 'e'
+
+    mov rdi, r12                          ; 1er arg = e
+    mov r12, [r12 + LISTELEM_OFF_NEXT]    ; e = e->next. Avanza
+    call free                             ; Libera el elemento
+
+  .cmp:
+    cmp r12, NULL                    ; while(e != NULL) 
+    jne .loop                        ; Salta al cuerpo del loop
+
+    pop r13
+    pop r12
+
+    pop rbp
     ret
 
 listPrint:
