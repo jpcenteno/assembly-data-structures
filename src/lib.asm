@@ -17,6 +17,13 @@ BITS 64
 %define N3TREE_OFF_FIRST 0
 %define N3TREE_SIZE 8
 
+; Offsets n3treeElem_t
+%define N3TREEELEM_OFF_DATA   0
+%define N3TREEELEM_OFF_LEFT   8
+%define N3TREEELEM_OFF_CENTER 16
+%define N3TREEELEM_OFF_RIGHT  24
+%define N3TREEELEM_SIZE       32
+
 section .rodata
 
 section .text

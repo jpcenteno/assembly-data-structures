@@ -54,11 +54,11 @@ typedef struct s_n3tree{
 } n3tree_t;
 
 typedef struct s_n3treeElem{
-    void* data;
-    struct s_n3treeElem *left;
-    struct s_list *center;
-    struct s_n3treeElem *right;
-} n3treeElem_t;
+    void* data;                 // 8 B, offset = 0
+    struct s_n3treeElem *left;  // 8 B, offset = 8
+    struct s_list *center;      // 8 B, offset = 16
+    struct s_n3treeElem *right; // 9 B, offset = 24
+} n3treeElem_t; // size = 32 B
 
 n3tree_t* n3treeNew();
 void n3treeAdd(n3tree_t* t, void* data, funcCmp_t* fc);
