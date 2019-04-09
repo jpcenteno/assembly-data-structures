@@ -834,7 +834,77 @@ n3treeRemoveEq:
     pop rbp
     ret
 
+; void _n3tree_elem_delete(n3treeElem_t* e, funcDelete_t* fd)
+;                          RDI              RSI
+_n3tree_elem_delete:
+    push rbp
+    mov rbp, rsp
+
+    ; if (e == NULL) return;
+    cmp rdi, NULL
+    je .end
+
+    push r12
+    push r13
+    mov r12, rdi                          ; r12 = e
+    mov r13, rsi                          ; r13 = fd
+
+    ; Borra el dato (de ser fd != NULL)
+    cmp r13, NULL                         ; fd == NULL
+    je .endif                             ; if (FD != NULL)
+    mov rdi, [r12 + N3TREEELEM_OFF_DATA]  ; |    1er arg = e->data
+    call r13                              ; |    fd(e->data)
+  .endif:
+
+    ; Limpia la lista center
+    mov rdi, [r12 + N3TREEELEM_OFF_CENTER] ; 1er arg = e->center
+    mov rsi, r13                           ; 2do arg = fd
+    call listDelete                        ; listDelete(e->center, fd)
+
+    ; se llama recursivamente para limpiar e->left
+    mov rdi, [r12 + N3TREEELEM_OFF_LEFT]   ; 1er arg = e->left
+    mov rsi, r13                           ; 2nd arg = fd
+    call _n3tree_elem_delete               ; _n3tree_elem_delete(e->left, fd)
+
+    ; se llama recursivamente para limpiar e->right
+    mov rdi, [r12 + N3TREEELEM_OFF_RIGHT]  ; 1er arg = e->right
+    mov rsi, r13                           ; 2nd arg = fd
+    call _n3tree_elem_delete               ; _n3tree_elem_delete(e->right, fd)
+
+    ; una vez liberado todx lo que se apuntaba Borra la estructura e
+    mov rdi, r12                            ; 1er arg = e
+    call free                               ; free(e)
+
+    pop r13
+    pop r12
+
+  .end:
+    pop rbp
+    ret
+
+; void n3treeDelete(n3tree_t* t, funcDelete_t* fd)
+;                   RDI          RSI
 n3treeDelete:
+    push rbp
+    mov rbp, rsp
+
+    push r12
+    sub rsp, 8
+
+    mov r12, rdi                          ; Preservo 't' que voy a liberar despues
+
+    ; Borra recursivamente todos los nodos
+    mov rdi, [r12 + N3TREE_OFF_FIRST]     ; 1er arg = t->first
+    call _n3tree_elem_delete              ; _n3tree_elem_delete(t->first, fd)
+
+    ; Borra el n3tree_t
+    mov rdi, r12                          ; 1er arg = t
+    call free                             ; free(t)
+
+    add rsp, 8
+    pop r12
+
+    pop rbp
     ret
 
 nTableNew:
