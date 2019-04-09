@@ -1075,7 +1075,22 @@ nTableAdd:
     pop rbp
     ret
 
+; void nTableRemoveSlot(nTable_t* t, uint32_t slot, void* data, funcCmp_t* fc, funcDelete_t* fd)
+;                       RDI           RSI           RDX           RCX           r8
 nTableRemoveSlot:
+    push rbp
+    mov rbp, rsp
+
+    mov rdi, [rdi + NTABLE_OFF_LISTARRAY] ; rdi = t->listArray       (1er arg)
+    mov rdi, [rdi + rsi * SIZE_PTR]       ; rdi = t->listArray[slot] (1er arg)
+
+    mov rsi, rdx                          ; data                     (2do arg)
+    mov rdx, rcx                          ; fc                       (3er arg)
+    mov rcx, r8                           ; fd                       (4to arg)
+
+    call listRemove                       ; listRemove(t, data, fc, fd)
+
+    pop rbp
     ret
 
 nTableDeleteSlot:
