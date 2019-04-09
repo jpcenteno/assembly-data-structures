@@ -27,6 +27,10 @@ void n3treePrint(n3tree_t* t, FILE *pFile, funcPrint_t* fp) {
 
 void nTableRemoveAll(nTable_t* t, void* data, funcCmp_t* fc, funcDelete_t* fd) {
 
+    for ( uint32_t i = 0; i < t->size; ++i ) {
+        nTableRemoveSlot(t, i, data, fc, fd);
+    }
+
 }
 
 void nTablePrint(nTable_t* t, FILE *pFile, funcPrint_t* fp) {
