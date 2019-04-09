@@ -789,8 +789,48 @@ void test_nTable(FILE *pfile){
         free(t->listArray);
         free(t);
     }
-    // funcDelete_t* fd)(11 Inst.)
+
     // void nTableDeleteSlot(nTable_t* t, uint32_t slot, funcDelete_t* fd)(21 Inst.)
+    {
+
+        char *s1 = strcpy(malloc(2), "b");
+        char *s2 = strcpy(malloc(2), "a");
+        char *s3 = strcpy(malloc(2), "c");
+        char *s4 = strcpy(malloc(2), "b");
+        nTable_t* t = nTableNew(3);
+        nTableAdd(t, 2, s1, (funcCmp_t*) strCmp); // {0: [],  1: [], 2: [b]}
+        nTableAdd(t, 2, s2, (funcCmp_t*) strCmp); // {0: [],  1: [], 2: [a, b]}
+        nTableAdd(t, 2, s3, (funcCmp_t*) strCmp); // {0: [],  1: [], 2: [a, b, c]}
+        nTableAdd(t, 0, s4, (funcCmp_t*) strCmp); // {0: [b], 1: [], 2: [a, b, c]}
+
+        nTableDeleteSlot(t, 2, (funcDelete_t*) strDelete);
+
+        assert(t->size == 3);
+        assert(t->listArray != NULL);
+
+        // Lista 0
+        assert(t->listArray[0]->first == t->listArray[0]->last);
+        assert(t->listArray[0]->first->data == s4);
+        assert(t->listArray[0]->first->next == NULL);
+        assert(t->listArray[0]->first->prev == NULL);
+
+        // Lista 1
+        assert(t->listArray[1]->first == NULL);
+        assert(t->listArray[1]->last == NULL);
+
+        // Lista 2
+        assert(t->listArray[2]->first == NULL);
+        assert(t->listArray[2]->last == NULL);
+
+        // Limpieza
+        for (int i = 0; i < 3; ++i ) {
+            listDelete(t->listArray[i], (funcDelete_t*) strDelete);
+        }
+        free(t->listArray);
+        free(t);
+
+    }
+
 }
 
 int main (void){

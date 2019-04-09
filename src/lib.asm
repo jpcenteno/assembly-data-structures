@@ -1093,7 +1093,34 @@ nTableRemoveSlot:
     pop rbp
     ret
 
+; void nTableDeleteSlot(nTable_t* t, uint32_t slot, funcDelete_t* fd)
+;                       RDI           RSI             RDX
 nTableDeleteSlot:
+    push rbp
+    mov rbp, rsp
+
+    push r12
+    push r13
+
+    mov r12, rdi                          ; r12 = t
+    mov r13, rsi                          ; r13 = slot
+
+    ; Borro la lista vieja
+    mov rdi, [r12 + NTABLE_OFF_LISTARRAY] ; rdi = t->listArray       (1er arg)
+    mov rdi, [rdi + r13 * SIZE_PTR]       ; rdi = t->listArray[slot] (1er arg)
+    mov rsi, rdx                          ; rsi = fd                 (2do arg)
+    call listDelete                       ; listDelete(t->listArray[slot], fd)
+
+    ; Creo una lista vacia
+    call listNew                          ; rax = listNew()
+
+    mov r12, [r12 + NTABLE_OFF_LISTARRAY] ; r12 = t->listArray
+    mov [r12 + r13 * SIZE_PTR], rax       ; t->listArray[slot] = listNew()
+
+    pop r13
+    pop r12
+
+    pop rbp
     ret
 
 nTableDelete:
