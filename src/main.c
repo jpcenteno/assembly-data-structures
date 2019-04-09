@@ -615,7 +615,32 @@ void test_n3tree(FILE *pfile){
 }
 
 void test_nTable(FILE *pfile){
-    
+
+    // nTable_t* nTableNew(uint32_t size)(31 Inst.)
+    {
+
+        uint32_t n = 9;
+        nTable_t* t = nTableNew(n);
+
+        assert(t->size == n);
+        for ( uint32_t i = 0; i < n; ++i ) {
+            assert(t->listArray[i]->first == NULL);
+            assert(t->listArray[i]->last  == NULL);
+        }
+
+        // Libera memoria
+        for ( uint32_t i = 0; i < n; ++i ) {
+            free(t->listArray[i]);
+        }
+        free(t->listArray);
+        free(t);
+
+    }
+
+    // void nTableAdd(nTable_t* t, uint32_t slot, void* data, funcCmp_t* fc)(9 Inst.)
+    // void nTableRemoveSlot(nTable_t* t, uint32_t slot, void* data, funcCmp_t* fc,
+    // funcDelete_t* fd)(11 Inst.)
+    // void nTableDeleteSlot(nTable_t* t, uint32_t slot, funcDelete_t* fd)(21 Inst.)
 }
 
 int main (void){

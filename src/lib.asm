@@ -24,6 +24,14 @@ BITS 64
 %define N3TREEELEM_OFF_RIGHT  24
 %define N3TREEELEM_SIZE       32
 
+; Offsets nTable_t
+%define NTABLE_OFF_LISTARRAY 0
+%define NTABLE_OFF_SIZE      8
+%define SIZE_NTABLE          16
+
+%define SIZE_PTR             8
+
+
 section .rodata
 
   listPrint_bracket_open:  DB "[", 0
@@ -1001,7 +1009,53 @@ n3treeDelete:
     pop rbp
     ret
 
+; nTable_t* nTableNew(uint32_t size)
+; RAX                 EDI
 nTableNew:
+    push rbp
+    mov rbp, rsp
+
+    push r12
+    push r13
+
+    mov r12, rdi                      ; r12d = size
+
+    ; t = malloc(SIZE_NTABLE)
+    mov edi, SIZE_NTABLE              ; sizeof(nTable_t)
+    call malloc                       ; malloc(sizeof(nTable_t))
+    mov r13, rax                      ; r13 = t
+
+    ; t->size = size
+    mov [r13 + NTABLE_OFF_SIZE], r12d ; t->size = size
+
+    ; Pido memoria para el array de listas
+    mov rdi, r12                      ; edi = size
+    shl rdi, 8                        ; 1er arg = edi = size * 8 (tamano de un ptr)
+    call malloc                       ; rax = malloc( size * SIZE_PTR )
+    mov [r13 + NTABLE_OFF_LISTARRAY], rax ; t->listArray = malloc( size * SIZE_PTR )
+
+    ; 'while(size > 0)'
+    jmp .cmp                          ; Salta a la guarda
+  .loop:
+
+        call listNew                          ; rax = listNew()
+
+        ; decremento el contador size, que voy a usar para offsetear la posicion
+        ; del puntero que tengo que escribir con la lista vacia.
+        dec r12d                              ; size --
+        mov rdx, [r13 + NTABLE_OFF_LISTARRAY] ; rdx = t->listArray
+        mov [rdx + r12 * 8], rax             ; t->listArray[size] = listNew()
+
+  .cmp:
+    cmp r12d, 0                       ; size > 0
+    jnz .loop                         ; while (size > 0)
+
+    mov rax, r13
+
+    pop r13
+    pop r12
+
+    pop rbp
     ret
 
 nTableAdd:
