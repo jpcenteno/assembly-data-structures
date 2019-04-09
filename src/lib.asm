@@ -1058,7 +1058,21 @@ nTableNew:
     pop rbp
     ret
 
+; void nTableAdd(nTable_t* t, uint32_t slot, void* data, funcCmp_t* fc)
+;               RDI           RSI           RDX`          RCX
 nTableAdd:
+    push rbp
+    mov rbp, rsp
+
+    mov rdi, [rdi + NTABLE_OFF_LISTARRAY] ; rdi = t->listArray       (1er arg)
+    mov rdi, [rdi + rsi * SIZE_PTR]       ; rdi = t->listArray[slot] (1er arg)
+
+    mov rsi, rdx                          ; rsi = data (2do arg)
+    mov rdx, rcx                          ; rcx = fc   (3er arg)
+
+    call listAdd                          ; listAdd(t->listArray[slot], data, fc)
+
+    pop rbp
     ret
 
 nTableRemoveSlot:
