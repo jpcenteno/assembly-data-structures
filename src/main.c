@@ -415,6 +415,128 @@ void test_n3tree(FILE *pfile){
 
     }
     // void n3treeRemoveEq(n3tree_t* t, funcDelete_t* fd);
+    // Recorre recursivamente todo el arbol, borrando en cada nodo todos
+    // los elementos de su lista de datos iguales (center). Si fd no es
+    // cero, utiliza la funci´ on para borrar los datos respectivamente.
+    {
+
+        char *s1 = strcpy(malloc(2), "b");
+        char *s2 = strcpy(malloc(2), "a");
+        char *s3 = strcpy(malloc(2), "c");
+        char *s4 = strcpy(malloc(2), "b");
+        char *s5 = strcpy(malloc(2), "b");
+        char *s6 = strcpy(malloc(2), "c");
+        char *s7 = strcpy(malloc(2), "c");
+
+        n3tree_t* t = n3treeNew();
+
+        n3treeAdd(t, s1, (funcCmp_t*) strCmp);
+        n3treeAdd(t, s2, (funcCmp_t*) strCmp);
+        n3treeAdd(t, s3, (funcCmp_t*) strCmp);
+        n3treeAdd(t, s4, (funcCmp_t*) strCmp);
+        n3treeAdd(t, s5, (funcCmp_t*) strCmp);
+        n3treeAdd(t, s6, (funcCmp_t*) strCmp);
+        n3treeAdd(t, s7, (funcCmp_t*) strCmp);
+        /*          b,{b, b}
+                    /       \
+                   a,{}     c,{c,c} */
+
+        n3treeRemoveEq(t, (funcDelete_t*) strDelete);
+        /*          b,{}
+                    /       \
+                   a,{}     c,{} */
+        assert(t->first != NULL);
+        // Raiz
+        assert(strcmp(t->first->data, "b") == 0);
+        assert(aux_check_n3treeelement_center(t->first, (funcCmp_t*) strCmp) == 0);
+        assert(t->first->left != NULL);
+        assert(t->first->right != NULL);
+        // Raiz->izda
+        assert(strcmp(t->first->left->data, "a") == 0);
+        assert(aux_check_n3treeelement_center(t->first->left, (funcCmp_t*) strCmp) == 0);
+        assert(t->first->left->left  == NULL);
+        assert(t->first->left->right == NULL);
+        // Raiz->dha
+        assert(strcmp(t->first->right->data, "c") == 0);
+        assert(aux_check_n3treeelement_center(t->first->right, (funcCmp_t*) strCmp) == 0);
+        assert(t->first->right->left  == NULL);
+        assert(t->first->right->right == NULL);
+
+        // Libero datos
+        listDelete(t->first->center, NULL);
+        listDelete(t->first->left->center, NULL);
+        listDelete(t->first->right->center, NULL);
+        strDelete(t->first->data);
+        strDelete(t->first->left->data);
+        strDelete(t->first->right->data);
+        free(t->first->left);
+        free(t->first->right);
+        free(t->first);
+        free(t);
+
+    }
+    { // Caso 2: fd == NULL
+
+        char *s1 = strcpy(malloc(2), "b");
+        char *s2 = strcpy(malloc(2), "a");
+        char *s3 = strcpy(malloc(2), "c");
+        char *s4 = strcpy(malloc(2), "b");
+        char *s5 = strcpy(malloc(2), "b");
+        char *s6 = strcpy(malloc(2), "c");
+        char *s7 = strcpy(malloc(2), "c");
+
+        n3tree_t* t = n3treeNew();
+
+        n3treeAdd(t, s1, (funcCmp_t*) strCmp);
+        n3treeAdd(t, s2, (funcCmp_t*) strCmp);
+        n3treeAdd(t, s3, (funcCmp_t*) strCmp);
+        n3treeAdd(t, s4, (funcCmp_t*) strCmp);
+        n3treeAdd(t, s5, (funcCmp_t*) strCmp);
+        n3treeAdd(t, s6, (funcCmp_t*) strCmp);
+        n3treeAdd(t, s7, (funcCmp_t*) strCmp);
+        /*          b,{b, b}
+                    /       \
+                   a,{}     c,{c,c} */
+
+        n3treeRemoveEq(t, NULL);
+        /*          b,{}
+                    /       \
+                   a,{}     c,{} */
+        assert(t->first != NULL);
+        // Raiz
+        assert(strcmp(t->first->data, "b") == 0);
+        assert(aux_check_n3treeelement_center(t->first, (funcCmp_t*) strCmp) == 0);
+        assert(t->first->left != NULL);
+        assert(t->first->right != NULL);
+        // Raiz->izda
+        assert(strcmp(t->first->left->data, "a") == 0);
+        assert(aux_check_n3treeelement_center(t->first->left, (funcCmp_t*) strCmp) == 0);
+        assert(t->first->left->left  == NULL);
+        assert(t->first->left->right == NULL);
+        // Raiz->dha
+        assert(strcmp(t->first->right->data, "c") == 0);
+        assert(aux_check_n3treeelement_center(t->first->right, (funcCmp_t*) strCmp) == 0);
+        assert(t->first->right->left  == NULL);
+        assert(t->first->right->right == NULL);
+
+        // Libero datos
+        // Estas se pierden al borrar las listas
+        free(s4);
+        free(s5);
+        free(s6);
+        free(s7);
+        listDelete(t->first->center, NULL);
+        listDelete(t->first->left->center, NULL);
+        listDelete(t->first->right->center, NULL);
+        strDelete(t->first->data);
+        strDelete(t->first->left->data);
+        strDelete(t->first->right->data);
+        free(t->first->left);
+        free(t->first->right);
+        free(t->first);
+        free(t);
+
+    }
     // void n3treeDelete(n3tree_t* t, funcDelete_t* fd);
     // void n3treePrint(n3tree_t* t, FILE *pFile, funcPrint_t* fp);
 

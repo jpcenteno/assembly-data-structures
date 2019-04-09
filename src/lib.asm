@@ -781,7 +781,57 @@ n3treeAdd:
     pop rbp
     ret
 
+; void _n3tree_removeeq_aux(n3treeElem_t* e, funcDelete_t* fd)
+;                           RDI              RSI
+_n3tree_removeeq_aux:
+    push rbp
+    mov rbp, rsp
+
+    cmp rdi, NULL
+    je .end
+
+    push r12
+    push r13
+
+    mov r12, rdi  ; r12 = e
+    mov r13, rsi  ; r13 = fd
+
+    ; Hago llamado a listDelete para borrar la lista.
+    mov rdi, [r12 + N3TREEELEM_OFF_CENTER] ; 1er arg = e->center
+    mov rsi, r13                           ; 2do arg = fd
+    call listDelete                        ; listDelete(e->center, fd);
+
+    ; Pongo una lista vacia para que cumpla el invariante de la struct
+    call listNew                           ; rax = listNew()
+    mov [r12 + N3TREEELEM_OFF_CENTER], rax ; e->center == []
+
+    ; Llamo recursivamente a esta funcion para el hijo izquierdo
+    mov rdi, [r12 + N3TREEELEM_OFF_LEFT]   ; 1er arg = e->left
+    mov rsi, r13                           ; 2do arg = fd
+    call _n3tree_removeeq_aux              ; _n3tree_removeeq_aux(e->left, fd)
+
+    ; Llamo recursivamente a esta funcion para el hijo derecho
+    mov rdi, [r12 + N3TREEELEM_OFF_RIGHT]  ; 1er arg = e->right
+    mov rsi, r13                           ; 2do arg = fd
+    call _n3tree_removeeq_aux              ; _n3tree_removeeq_aux(e->right, fd)
+
+    pop r13
+    pop r12
+
+  .end:
+    pop rbp
+    ret
+
+; void n3treeRemoveEq(n3tree_t* t, funcDelete_t* fd)
+;                     RDI          RSI
 n3treeRemoveEq:
+    push rbp
+    mov rbp, rsp
+
+    mov rdi, [rdi + N3TREE_OFF_FIRST] ; 1er arg = t->first
+    call _n3tree_removeeq_aux         ; _n3tree_removeeq_aux(t->first, fd)
+
+    pop rbp
     ret
 
 n3treeDelete:
