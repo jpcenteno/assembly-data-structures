@@ -26,6 +26,12 @@ BITS 64
 
 section .rodata
 
+  listPrint_bracket_open:  DB "[", 0
+  listPrint_comma:         DB ",", 0
+  listPrint_bracket_close: DB "]", 0
+  listPrint_ptr:           DB "%p", 0
+
+
 section .text
 
 extern malloc
@@ -633,7 +639,95 @@ listDelete:
     pop rbp
     ret
 
+; void listPrint(list_t* l, FILE *pFile, funcPrint_t* fp)
+;                RDI        RSI          RDX
+;    fprintf(pfile, "[")
+;    e = l->first
+;    while (e != null)
+;         if ( fp != null ) {
+;             fp( e->data, pFile )
+;         } else {
+;             fprintf("%p", e->data)
+;         }
+;
+;         e = e->next
+;
+;         if (e) {
+;             fprintf(pfile, ",");
+;         }
+;     }
+;
+;     fprintf(pfile, "]")
+; }
 listPrint:
+    push rbp
+    mov rbp, rsp
+
+    push r12
+    push r13
+    push r14
+    sub rsp, 8
+
+    mov r12, [rdi + LIST_OFF_FIRST]       ; r12 = e = l->first
+    mov r13, rsi                          ; r13 = pFile
+    mov r14, rdx                          ; r14 = fp
+
+    ; fprint(pFile, "[");
+    mov rdi, r13                          ; <- pFile
+    mov rsi, listPrint_bracket_open       ; <- ptr a "["
+    call fprintf                          ; fprint(pFile, "[");
+
+    ; while (e)
+  .loop:
+    
+    ; if (fp != NULL)
+    cmp r14, NULL                         ; fp == null
+    je .print_ptr                         ; if (fp == null), imprimr address
+
+    ; fp(e->data, pFile)
+    mov rdi, [r12 + LISTELEM_OFF_DATA]    ; 1er arg = e->data
+    mov rsi, r13                          ; 2do arg = pFile
+    call r14                              ; fp(e->data, pFile)
+
+    jmp .endprint
+
+  .print_ptr: ; "else"
+
+    ; fprintf(pFile, "%p", e->data)
+    mov rdi, r13                          ; 1er arg = pFile
+    mov rsi, listPrint_ptr                ; 2do arg = "%p"
+    mov rdx, [r12 + LISTELEM_OFF_DATA]    ; 3er arg = e->data
+    call fprintf                          ; fprintf(pFile, "%p", e->data)
+
+  .endprint: ; "endif"
+
+    mov r12, [r12 + LISTELEM_OFF_NEXT]    ; e = e->next
+
+    ; if (e != null) : print(",")
+    cmp r12, NULL                         ; e == null
+    je .cmp                               ; if (e -= null), continue
+
+    ; fprintf(pFile, ",")
+    mov rdi, r13                          ; 1er arg = pfile
+    mov rsi, listPrint_comma              ; 2do arg = ","
+    call fprintf                          ; fprintf(pFile, ",")
+
+  .cmp:
+    cmp r12, NULL                         ; e == NULL
+    jne .loop                             ; while ( e != NULL )
+
+    ; fprint(pFile, "[");
+    mov rdi, r13                          ; <- pFile
+    mov rsi, listPrint_bracket_close      ; <- ptr a "["
+    call fprintf                          ; fprint(pFile, "[");
+
+
+    add rsp, 8
+    pop r14
+    pop r13
+    pop r12
+
+    pop rbp
     ret
 
 n3treeNew:

@@ -4,3 +4,4 @@ strLen("abc") = 3
 strLen("") = 0
 mambo
 mango
+[foo,bar,baz]
