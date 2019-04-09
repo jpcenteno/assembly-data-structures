@@ -23,9 +23,9 @@ Funciones de `list_t`:
 
 Funciones de `n3tree_t`:
 - [X] `n3tree_t* n3treeNew()` (6 Inst.)
-- [ ] `void n3treeAdd(n3tree_t* t, void* data, funcCmp_t* fc)` (47 Inst.)
-- [ ] `void n3treeRemoveEq(n3tree_t* t, funcDelete_t* fd)` (29 Inst.)
-- [ ] `void n3treeDelete(n3tree_t* t, funcDelete_t* fd)` (33 Inst.)
+- [X] `void n3treeAdd(n3tree_t* t, void* data, funcCmp_t* fc)` (47 Inst.)
+- [X] `void n3treeRemoveEq(n3tree_t* t, funcDelete_t* fd)` (29 Inst.)
+- [X] `void n3treeDelete(n3tree_t* t, funcDelete_t* fd)` (33 Inst.)
 - [ ] `nTable_t* nTableNew(uint32_t size)` (31 Inst.)
 
 Funciones de `nTable_t`:
@@ -80,3 +80,7 @@ Funciones a implementar en `C`:
 ### 2019/04/06
 
 - Implementacion de `n3treeNew`
+
+### 2019/04/09
+- Implementacion de `n3treeRemoveEq`
+- Implementacion de `n3treeDelete`
