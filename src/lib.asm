@@ -1123,5 +1123,48 @@ nTableDeleteSlot:
     pop rbp
     ret
 
+; void nTableDelete(nTable_t* t, funcDelete_t* fd)
+;                       RDI           RSI
 nTableDelete:
+    push rbp
+    mov rbp, rsp
+
+    push r12
+    push r13
+    push r14
+    sub rsp, 8
+
+    mov r12, rdi                          ; r12 = t
+    mov r13d, [r12 + NTABLE_OFF_SIZE]     ; r13d = t->size ( "n" )
+    mov r14, rsi                          ; r14 = fd
+
+    ; while ( 0 < n )
+    jmp .cmp
+  .loop:
+
+        dec r13d                              ; n--
+
+        mov rdi, [r12 + NTABLE_OFF_LISTARRAY] ; rdi = t->listArray       (1er arg)
+        mov rdi, [rdi + r13  * SIZE_PTR]       ; rdi = t->listArray[n]    (1er arg)
+
+        mov rsi, r14                          ; rsi = fd                 (2do arg)
+
+        call listDelete                       ; listDelete(l->listArray[n], fd)
+
+  .cmp:
+    cmp r13d, 0
+    jg .loop                              ; while ( slot > 0 )
+
+    mov rdi, [r12 + NTABLE_OFF_LISTARRAY] ; rdi = t->listArray      (1er arg)
+    call free                             ; free(t->listArray)
+
+    mov rdi, r12                          ; rdi = t                 (1er arg)
+    call free                             ; free(t)
+
+    add rsp, 8
+    pop r14
+    pop r13
+    pop r12
+
+    pop rbp
     ret
