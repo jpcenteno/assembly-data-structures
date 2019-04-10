@@ -6,3 +6,6 @@ mambo
 mango
 []
 [foo,bar,baz]
+0 = [b]
+1 = []
+2 = [a,b,c]

@@ -33,6 +33,16 @@ void nTableRemoveAll(nTable_t* t, void* data, funcCmp_t* fc, funcDelete_t* fd) {
 
 }
 
+void _aux_print_ptr(void* data, FILE* pFile) {
+    fprintf(pFile, "%p", data);
+}
 void nTablePrint(nTable_t* t, FILE *pFile, funcPrint_t* fp) {
 
+    if (!fp) fp = (funcPrint_t*) _aux_print_ptr;
+
+    for ( uint32_t i = 0; i < t->size; ++i ) {
+        fprintf(pFile, "%d = ", i);
+        listPrint(t->listArray[i], pFile, (funcPrint_t*) fp);
+        fprintf(pFile, "\n");
+    }
 }

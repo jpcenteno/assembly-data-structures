@@ -853,6 +853,23 @@ void test_nTable(FILE *pfile){
         nTableDelete(t, (funcDelete_t*) strDelete);
     }
 
+    // void nTablePrint(nTable_t* t, FILE *pFile, funcPrint_t* fp)
+    {
+
+        char *s1 = strcpy(malloc(2), "b");
+        char *s2 = strcpy(malloc(2), "a");
+        char *s3 = strcpy(malloc(2), "c");
+        char *s4 = strcpy(malloc(2), "b");
+        nTable_t* t = nTableNew(3);
+        nTableAdd(t, 2, s1, (funcCmp_t*) strCmp); // {0: [],  1: [], 2: [b]}
+        nTableAdd(t, 2, s2, (funcCmp_t*) strCmp); // {0: [],  1: [], 2: [a, b]}
+        nTableAdd(t, 2, s3, (funcCmp_t*) strCmp); // {0: [],  1: [], 2: [a, b, c]}
+        nTableAdd(t, 0, s4, (funcCmp_t*) strCmp); // {0: [b], 1: [], 2: [a, b, c]}
+
+        nTablePrint(t, pfile, (funcPrint_t*) strPrint);
+        nTableDelete(t, (funcDelete_t*) strDelete);
+    }
+
 }
 
 int main (void){
