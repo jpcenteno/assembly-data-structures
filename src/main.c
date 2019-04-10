@@ -298,6 +298,12 @@ void test_list(FILE *pfile){
     }
     // void listPrint(list_t* l, FILE *pFile, funcPrint_t* fp)
     {
+        list_t* l = listNew();
+        listPrint(l, pfile, NULL);
+        fprintf(pfile, "\n");
+        listDelete(l, NULL);
+    }
+    {
         char *s1 = strcpy(malloc(4), "foo");
         char *s2 = strcpy(malloc(4), "bar");
         char *s3 = strcpy(malloc(4), "baz");

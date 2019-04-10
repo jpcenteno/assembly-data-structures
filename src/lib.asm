@@ -686,6 +686,7 @@ listPrint:
     call fprintf                          ; fprint(pFile, "[");
 
     ; while (e)
+    jmp .cmp
   .loop:
     
     ; if (fp != NULL)
