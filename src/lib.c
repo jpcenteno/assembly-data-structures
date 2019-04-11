@@ -2,9 +2,29 @@
 
 /** STRING **/
 
+#define MIN(x, y) ((x < y) ? x : y)
+
 char* strRange(char* a, uint32_t i, uint32_t f) {
 
-    return 0;
+    // Casos triviales
+    if (f < i)          return a;
+    if (strlen(a) <= i) return "";
+
+    f = MIN(strlen(a) - 1, f); // Si f > strlen(a), f = strlen(a) - 1
+
+    char * out = malloc(f - i + 2);
+    for (uint32_t k = 0; k <= f - i; ++k) {
+        out[k] = a[i + k];
+    }
+
+    out[f - i + 1] = 0; // NUL terminator
+
+    // Libera 'a' porque al devolver el mismo puntero a 'a' en el caso trivial,
+    // no se puede saber si se libero o no la string de entrada.
+    //free(a);
+
+    return out;
+
 }
 
 /** Lista **/

@@ -56,6 +56,32 @@ void test_string(FILE *pfile){
         assert(strCmp("", "") == 0);
     }
 
+    // char* strRange(char* a, uint32_t i, uint32_t f)
+    {
+
+        // Caso normal
+        char* s1 = strRange( "ABC",  1,  1 );
+        assert( strcmp( s1, "B" ) == 0 );
+        free(s1);
+
+        // caso i>f => devuelve a
+        char* s2 = strRange( "ABC", 10,  0);
+        assert( strcmp( s2, "ABC" ) == 0 );
+        // free(s2); // invalido FIXME
+
+        // Caso strlen(a) < f => f=strlen(a)
+        char * s3 = strRange("ABC",  1, 10);
+        assert( strcmp( s3, "BC")  == 0 );
+        free(s3);
+
+        // caso strlen(a) <= i <= f, devuelve ""
+        char * s4 = strRange("ABC",  3, 10);
+        assert( strcmp( s4, "" ) == 0 );
+        // free(s4); // invalido FIXME
+
+
+    }
+
 }
 
 void test_list(FILE *pfile){
