@@ -664,6 +664,40 @@ void test_n3tree(FILE *pfile){
 
     }
     // void n3treePrint(n3tree_t* t, FILE *pFile, funcPrint_t* fp);
+    {
+        n3tree_t* t = n3treeNew();
+        n3treePrint(t, pfile, NULL);
+        fprintf(pfile, "\n");
+        n3treeDelete(t, NULL);
+    }
+    {
+
+        char *s1 = strcpy(malloc(2), "b");
+        char *s2 = strcpy(malloc(2), "a");
+        char *s3 = strcpy(malloc(2), "c");
+        char *s4 = strcpy(malloc(2), "b");
+        char *s5 = strcpy(malloc(2), "b");
+        char *s6 = strcpy(malloc(2), "c");
+        char *s7 = strcpy(malloc(2), "c");
+        n3tree_t* t = n3treeNew();
+        n3treeAdd(t, s1, (funcCmp_t*) strCmp);
+        n3treeAdd(t, s2, (funcCmp_t*) strCmp);
+        n3treeAdd(t, s3, (funcCmp_t*) strCmp);
+        n3treeAdd(t, s4, (funcCmp_t*) strCmp);
+        n3treeAdd(t, s5, (funcCmp_t*) strCmp);
+        n3treeAdd(t, s6, (funcCmp_t*) strCmp);
+        n3treeAdd(t, s7, (funcCmp_t*) strCmp);
+
+        /*          b,{b, b}
+                    /       \
+                   a,{}     c,{c,c} */
+
+        n3treePrint(t, pfile, (funcPrint_t*) strPrint);
+        fprintf(pfile, "\n");
+        n3treeDelete(t, (funcDelete_t*) strDelete);
+
+    }
+
 
 }
 

@@ -20,25 +20,27 @@ Funciones de `list_t`:
 - [X] `void listRemoveFirst(list_t* l, funcDelete_t* fd)` (16 Inst.)
 - [X] `void listRemoveLast(list_t* l, funcDelete_t* fd)` (16 Inst.)
 - [X] `void listRemove(list_t* l, void* data, funcCmp_t* fc, funcDelete_t* fd)` (49 Inst.)
+- [X] `void listPrint(list_t* l, FILE *pFile, funcPrint_t* fp)`
 
 Funciones de `n3tree_t`:
 - [X] `n3tree_t* n3treeNew()` (6 Inst.)
 - [X] `void n3treeAdd(n3tree_t* t, void* data, funcCmp_t* fc)` (47 Inst.)
 - [X] `void n3treeRemoveEq(n3tree_t* t, funcDelete_t* fd)` (29 Inst.)
 - [X] `void n3treeDelete(n3tree_t* t, funcDelete_t* fd)` (33 Inst.)
-- [ ] `nTable_t* nTableNew(uint32_t size)` (31 Inst.)
 
 Funciones de `nTable_t`:
-- [ ] `nTable_t* nTableNew(uint32_t size)` (31 Inst.)
-- [ ] `void nTableAdd(nTable_t* t, uint32_t slot, void* data, funcCmp_t* fc)` (9 Inst.)
-- [ ] `void nTableRemoveSlot(nTable_t* t, uint32_t slot, void* data, funcCmp_t* fc, funcDelete_t* fd)` (11 Inst.)
-- [ ] `void nTableDeleteSlot(nTable_t* t, uint32_t slot, funcDelete_t* fd)` (21 Inst.)
+- [X] `nTable_t* nTableNew(uint32_t size)` (31 Inst.)
+- [X] `void nTableAdd(nTable_t* t, uint32_t slot, void* data, funcCmp_t* fc)` (9 Inst.)
+- [X] `void nTableRemoveSlot(nTable_t* t, uint32_t slot, void* data, funcCmp_t* fc, funcDelete_t* fd)` (11 Inst.)
+- [X] `void nTableDeleteSlot(nTable_t* t, uint32_t slot, funcDelete_t* fd)` (21 Inst.)
+- [X] `void nTableDelete(nTable_t* t, funcDelete_t* fd)`
 
 Funciones a implementar en `C`:
-- [ ] `char* strRange(char* a, uint32_t i, uint32_t f)` (15 LOCs)
-- [ ] `void listPrintReverse(list_t* l, FILE *pFile, funcPrint_t* fp)` (15 LOCs)
+- [X] `char* strRange(char* a, uint32_t i, uint32_t f)` (15 LOCs)
+- [X] `void listPrintReverse(list_t* l, FILE *pFile, funcPrint_t* fp)` (15 LOCs)
 - [ ] `void n3treePrint(n3tree_t* t, FILE *pFile, funcPrint_t* fp)` (11 LOCs)
-- [ ] `void nTableRemoveAll(nTable_t* t, void* data, funcCmp_t* fc, funcDelete_t* fd)` (2 LOCs)
+- [X] `void nTableRemoveAll(nTable_t* t, void* data, funcCmp_t* fc, funcDelete_t* fd)` (2 LOCs)
+- [X] `void nTablePrint(nTable_t* t, FILE *pFile, funcPrint_t* fp)`  (5 locs)
 
 ## Changelog
 
@@ -81,6 +83,18 @@ Funciones a implementar en `C`:
 
 - Implementacion de `n3treeNew`
 
-### 2019/04/09
+### 2019/04/08
 - Implementacion de `n3treeRemoveEq`
 - Implementacion de `n3treeDelete`
+- Implementacion de `listPrint`
+
+### 2019/04/09
+- Implementacion de `nTableNew`
+- Implementacion de `nTableAdd`
+- Implementacion de `nTableRemoveSlot`
+- Implementacion de `nTableRemoveAll`
+- Implementacion de `nTableDelete`
+
+### 2019/04/11
+- Implementacion de `strRange`
+- Implementacion de `listPrintReverse`

@@ -8,6 +8,8 @@ mango
 [foo,bar,baz]
 []
 [baz,bar,foo]
+<<  >>
+<< a,b[b,b],c[c,c] >>
 0 = [b]
 1 = []
 2 = [a,b,c]
