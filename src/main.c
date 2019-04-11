@@ -77,8 +77,15 @@ void test_string(FILE *pfile){
         // caso strlen(a) <= i <= f, devuelve ""
         char * s4 = strRange("ABC",  3, 10);
         assert( strcmp( s4, "" ) == 0 );
-        // free(s4); // invalido FIXME
+        free(s4); // invalido FIXME
 
+    }
+    // Caso que fallo en tester
+    {
+
+        char* a = "perro_loco";
+        a = strRange(a, 10, 10);
+        strDelete(a); // Deberia borrar el valor devuelto
 
     }
 

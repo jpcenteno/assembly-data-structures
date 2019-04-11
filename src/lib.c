@@ -8,11 +8,17 @@ void _aux_print_ptr(void* data, FILE* pFile) {
 
 #define MIN(x, y) ((x < y) ? x : y)
 
+char* _aux_new_str_vacia_en_heap() {
+        char * out = malloc(1);
+        out[0] = 0;
+        return out;
+}
+
 char* strRange(char* a, uint32_t i, uint32_t f) {
 
     // Casos triviales
     if (f < i)          return a;
-    if (strlen(a) <= i) return "";
+    if (strlen(a) <= i) return _aux_new_str_vacia_en_heap();
 
     f = MIN(strlen(a) - 1, f); // Si f > strlen(a), f = strlen(a) - 1
 
