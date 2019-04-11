@@ -1,5 +1,9 @@
 #include "lib.h"
 
+void _aux_print_ptr(void* data, FILE* pFile) {
+    fprintf(pFile, "%p", data);
+}
+
 /** STRING **/
 
 #define MIN(x, y) ((x < y) ? x : y)
@@ -31,6 +35,20 @@ char* strRange(char* a, uint32_t i, uint32_t f) {
 
 void listPrintReverse(list_t* l, FILE *pFile, funcPrint_t* fp) {
 
+    if (!fp) fp = (funcPrint_t*) _aux_print_ptr;
+
+    fprintf(pFile, "[");
+
+    listElem_t* e = l->last;
+    while(e) {
+
+        fp(e->data, pFile);
+        e = e->prev;
+        if (e) fprintf(pFile, ",");
+
+    }
+
+    fprintf(pFile, "]");
 }
 
 /** n3tree **/
@@ -53,9 +71,6 @@ void nTableRemoveAll(nTable_t* t, void* data, funcCmp_t* fc, funcDelete_t* fd) {
 
 }
 
-void _aux_print_ptr(void* data, FILE* pFile) {
-    fprintf(pFile, "%p", data);
-}
 void nTablePrint(nTable_t* t, FILE *pFile, funcPrint_t* fp) {
 
     if (!fp) fp = (funcPrint_t*) _aux_print_ptr;

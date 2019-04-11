@@ -345,6 +345,27 @@ void test_list(FILE *pfile){
 
     }
     // void listPrintReverse(list_t* l, FILE *pFile, funcPrint_t* fp)
+    {
+        list_t* l = listNew();
+        listPrintReverse(l, pfile, NULL);
+        fprintf(pfile, "\n");
+        listDelete(l, NULL);
+    }
+    {
+        char *s1 = strcpy(malloc(4), "foo");
+        char *s2 = strcpy(malloc(4), "bar");
+        char *s3 = strcpy(malloc(4), "baz");
+        list_t* l = listNew();
+        listAddLast(l, s1);
+        listAddLast(l, s2);
+        listAddLast(l, s3); // l = ["foo", "bar", "baz"]
+
+        listPrintReverse(l, pfile, (funcPrint_t*) strPrint);
+        fprintf(pfile, "\n");
+
+        listDelete(l, (funcDelete_t*) strDelete);
+
+    }
 }
 
 /** Verifica 'n->center'
