@@ -18,7 +18,10 @@ char* strRange(char* a, uint32_t i, uint32_t f) {
 
     // Casos triviales
     if (f < i)          return a;
-    if (strlen(a) <= i) return _aux_new_str_vacia_en_heap();
+    if (strlen(a) <= i) {
+        strDelete(a);
+        return _aux_new_str_vacia_en_heap();
+    }
 
     f = MIN(strlen(a) - 1, f); // Si f > strlen(a), f = strlen(a) - 1
 
@@ -31,7 +34,7 @@ char* strRange(char* a, uint32_t i, uint32_t f) {
 
     // Libera 'a' porque al devolver el mismo puntero a 'a' en el caso trivial,
     // no se puede saber si se libero o no la string de entrada.
-    //free(a);
+    strDelete(a);
 
     return out;
 

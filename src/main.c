@@ -59,30 +59,30 @@ void test_string(FILE *pfile){
     {
 
         // Caso normal
-        char* s1 = strRange( "ABC",  1,  1 );
+        char* s1 = strRange( strClone("ABC"),  1,  1 );
         assert( strcmp( s1, "B" ) == 0 );
-        free(s1);
+        strDelete(s1);
 
         // caso i>f => devuelve a
-        char* s2 = strRange( "ABC", 10,  0);
+        char* s2 = strRange( strClone("ABC"), 10,  0);
         assert( strcmp( s2, "ABC" ) == 0 );
-        // free(s2); // invalido FIXME
+        strDelete(s2);
 
         // Caso strlen(a) < f => f=strlen(a)
-        char * s3 = strRange("ABC",  1, 10);
+        char * s3 = strRange( strClone("ABC"),  1, 10);
         assert( strcmp( s3, "BC")  == 0 );
-        free(s3);
+        strDelete(s3);
 
         // caso strlen(a) <= i <= f, devuelve ""
-        char * s4 = strRange("ABC",  3, 10);
+        char * s4 = strRange( strClone("ABC"),  3, 10);
         assert( strcmp( s4, "" ) == 0 );
-        free(s4); // invalido FIXME
+        strDelete(s4);
 
     }
     // Caso que fallo en tester
     {
 
-        char* a = "perro_loco";
+        char* a = strClone("perro_loco");
         a = strRange(a, 10, 10);
         strDelete(a); // Deberia borrar el valor devuelto
 
