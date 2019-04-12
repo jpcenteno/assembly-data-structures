@@ -188,7 +188,7 @@ strConcat:
     mov rdi, rax        ; Puntero mutable a la string concatenada
 
                         ; Copio 'a'
-    pop rsi             ; puntero a 'a'
+    mov rsi, [rsp + 0]  ; puntero a 'a'
     jmp .cond_a
   .loop_a:
     mov dl, [rsi]       ; Leo 1 char de a
@@ -199,7 +199,7 @@ strConcat:
     cmp BYTE [rsi], 0   ; Chequea *a != \0
     jne .loop_a
 
-    pop rsi             ; puntero a 'b'
+    mov rsi, [rsp + 8]  ; puntero a 'b'
     jmp .cond_b
   .loop_b:
     mov dl, [rsi]       ; leo 1 char de 'b'
@@ -211,6 +211,19 @@ strConcat:
     jne .loop_b
 
     mov BYTE [rdi], 0   ; Escribe terminador nulo en 'out'
+
+
+    ; En el manejo de memoria del programa, es esta funcion quien debe liberar
+    ; 'a' y 'b'.
+    pop rdi                             ; rdi = 'a'
+    push rax                            ; stack = [out, b, rbp, ret,...
+    call free                           ; free(a)
+
+    mov rdi, [rsp + 8]                  ; rdi = b (1er param)
+    call free                           ; free(b)
+
+    pop rax                             ; return out
+    add rsp, 8                          ; balanceo stack
 
     pop rbp
     ret

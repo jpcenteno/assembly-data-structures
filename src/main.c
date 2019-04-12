@@ -23,17 +23,16 @@ void test_string(FILE *pfile){
     free(s2);
 
     // strConcat
-    char* s4 = "foo";
-    char* s5 = "barbaz";
-    char* s6 = strConcat(s4, s5);
-    assert(strcmp(s6, "foobarbaz") == 0);
-    char* s7 = strConcat("", "");
-    assert(strcmp(s7, "") == 0);
-    char* s8 = strConcat(s6, s4);
-    assert(strcmp(s8, "foobarbazfoo") == 0);
-    free(s6);
-    free(s7);
-    free(s8);
+    {
+        char * s = strClone("foo");
+        s = strConcat(s, strClone("barbaz"));
+        assert(strcmp(s, "foobarbaz") == 0);
+        s = strConcat(s, strClone(""));
+        assert(strcmp(s, "foobarbaz") == 0);
+        s = strConcat(strClone(""), s);
+        assert(strcmp(s, "foobarbaz") == 0);
+        strDelete(s);
+    }
 
     // strDelete
     char* s3 = strClone("asdfg");
