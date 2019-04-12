@@ -514,6 +514,10 @@ listRemoveFirst:
     push rbp
     mov rbp, rsp
 
+    ; if (l->first == NULL) return;
+    cmp QWORD [rdi + LIST_OFF_FIRST], 0
+    je .ret
+
     mov rax, [rdi+LIST_OFF_FIRST]       ; rax = l->first
     mov rdx, [rax+LISTELEM_OFF_NEXT]    ; rdx = (l->first)->next
     mov [rdi+LIST_OFF_FIRST], rdx       ; (l->first) = (l->first)->next
@@ -525,6 +529,8 @@ listRemoveFirst:
   .remove:
     mov rdi, rax                        ; 1st arg = e
     call aux_list_elem_remove           ; aux_list_elem_remove(e, fd)
+
+  .ret:
 
     pop rbp
     ret
