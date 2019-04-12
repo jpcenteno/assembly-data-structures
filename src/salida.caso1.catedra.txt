@@ -1,11 +1,245 @@
-==> Clonecasa
+==> Clone
+casa
 NULL
-==> Concat6
+==> Concat
+6
 4
 perro_loco
 perro_loco
 perro_loco
-==> Range10
+perro_locoperro_loco
+==> Range
+20
+p
+pe
+per
+perr
+perro
+perro_
+perro_l
+perro_lo
+perro_loc
+perro_loco
+perro_locop
+perro_locope
+perro_locoper
+perro_locoperr
+perro_locoperro
+perro_locoperro_
+perro_locoperro_l
+perro_locoperro_lo
+perro_locoperro_loc
+perro_locoperro_loco
+perro_locoperro_loco
+
+perro_locoperro_loco
+e
+er
+err
+erro
+erro_
+erro_l
+erro_lo
+erro_loc
+erro_loco
+erro_locop
+erro_locope
+erro_locoper
+erro_locoperr
+erro_locoperro
+erro_locoperro_
+erro_locoperro_l
+erro_locoperro_lo
+erro_locoperro_loc
+erro_locoperro_loco
+erro_locoperro_loco
+
+perro_locoperro_loco
+perro_locoperro_loco
+r
+rr
+rro
+rro_
+rro_l
+rro_lo
+rro_loc
+rro_loco
+rro_locop
+rro_locope
+rro_locoper
+rro_locoperr
+rro_locoperro
+rro_locoperro_
+rro_locoperro_l
+rro_locoperro_lo
+rro_locoperro_loc
+rro_locoperro_loco
+rro_locoperro_loco
+
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+r
+ro
+ro_
+ro_l
+ro_lo
+ro_loc
+ro_loco
+ro_locop
+ro_locope
+ro_locoper
+ro_locoperr
+ro_locoperro
+ro_locoperro_
+ro_locoperro_l
+ro_locoperro_lo
+ro_locoperro_loc
+ro_locoperro_loco
+ro_locoperro_loco
+
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+o
+o_
+o_l
+o_lo
+o_loc
+o_loco
+o_locop
+o_locope
+o_locoper
+o_locoperr
+o_locoperro
+o_locoperro_
+o_locoperro_l
+o_locoperro_lo
+o_locoperro_loc
+o_locoperro_loco
+o_locoperro_loco
+
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+_
+_l
+_lo
+_loc
+_loco
+_locop
+_locope
+_locoper
+_locoperr
+_locoperro
+_locoperro_
+_locoperro_l
+_locoperro_lo
+_locoperro_loc
+_locoperro_loco
+_locoperro_loco
+
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+l
+lo
+loc
+loco
+locop
+locope
+locoper
+locoperr
+locoperro
+locoperro_
+locoperro_l
+locoperro_lo
+locoperro_loc
+locoperro_loco
+locoperro_loco
+
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+o
+oc
+oco
+ocop
+ocope
+ocoper
+ocoperr
+ocoperro
+ocoperro_
+ocoperro_l
+ocoperro_lo
+ocoperro_loc
+ocoperro_loco
+ocoperro_loco
+
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+c
+co
+cop
+cope
+coper
+coperr
+coperro
+coperro_
+coperro_l
+coperro_lo
+coperro_loc
+coperro_loco
+coperro_loco
+
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+o
+op
+ope
+oper
+operr
+operro
+operro_
+operro_l
+operro_lo
+operro_loc
+operro_loco
+operro_loco
+
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
 p
 pe
 per
@@ -18,7 +252,17 @@ perro_loc
 perro_loco
 perro_loco
 
-perro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
 e
 er
 err
@@ -30,8 +274,18 @@ erro_loc
 erro_loco
 erro_loco
 
-perro_loco
-perro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
 r
 rr
 rro
@@ -42,9 +296,19 @@ rro_loc
 rro_loco
 rro_loco
 
-perro_loco
-perro_loco
-perro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
 r
 ro
 ro_
@@ -54,10 +318,20 @@ ro_loc
 ro_loco
 ro_loco
 
-perro_loco
-perro_loco
-perro_loco
-perro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
 o
 o_
 o_l
@@ -66,11 +340,21 @@ o_loc
 o_loco
 o_loco
 
-perro_loco
-perro_loco
-perro_loco
-perro_loco
-perro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
 _
 _l
 _lo
@@ -78,67 +362,118 @@ _loc
 _loco
 _loco
 
-perro_loco
-perro_loco
-perro_loco
-perro_loco
-perro_loco
-perro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
 l
 lo
 loc
 loco
 loco
 
-perro_loco
-perro_loco
-perro_loco
-perro_loco
-perro_loco
-perro_loco
-perro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
 o
 oc
 oco
 oco
 
-perro_loco
-perro_loco
-perro_loco
-perro_loco
-perro_loco
-perro_loco
-perro_loco
-perro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
 c
 co
 co
 
-perro_loco
-perro_loco
-perro_loco
-perro_loco
-perro_loco
-perro_loco
-perro_loco
-perro_loco
-perro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
 o
 o
 
-perro_loco
-perro_loco
-perro_loco
-perro_loco
-perro_loco
-perro_loco
-perro_loco
-perro_loco
-perro_loco
-perro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
+perro_locoperro_loco
 NULL
 
-==> Cmpcmp(sar,sar) -> 0
+==> Cmp
+cmp(sar,sar) -> 0
 cmp(sar,23) -> -1
 cmp(sar,taaa) -> 1
 cmp(sar,tbb) -> 1
@@ -163,17 +498,62 @@ cmp(tix,23) -> -1
 cmp(tix,taaa) -> -1
 cmp(tix,tbb) -> -1
 cmp(tix,tix) -> 0
-==> listAddFirst==> listAddLast==> listAdd[PRIMERO,00,aa,bb,dd,ff,ULTIMO]
+==> listAddFirst
+[]
+[]
+[PRIMERO]
+[PRIMERO]
+[PRIMERO,PRIMERO]
+[PRIMERO,PRIMERO]
+[PRIMERO,PRIMERO,PRIMERO]
+[PRIMERO,PRIMERO,PRIMERO]
+==> listAddLast
+[ULTIMO]
+[ULTIMO]
+[ULTIMO,ULTIMO]
+[ULTIMO,ULTIMO]
+[ULTIMO,ULTIMO,ULTIMO]
+[ULTIMO,ULTIMO,ULTIMO]
+==> listAdd
+[PRIMERO,00,aa,bb,dd,ff,ULTIMO]
 [ULTIMO,ff,dd,bb,aa,00,PRIMERO]
 [00,PRIMERO,ULTIMO,aa,bb,dd,ff]
 [ff,dd,bb,aa,ULTIMO,PRIMERO,00]
-==> listRemove[00,ff]
+==> listRemove
+[00,ff]
 [ff,00]
-==> listRemove[dd,ff,ULTIMO]
+==> listRemoveFirst
+[dd,ff,ULTIMO]
 [ULTIMO,ff,dd]
-==> listRemove[PRIMERO,00,aa]
+==> listRemoveLast
+[PRIMERO,00,aa]
 [aa,00,PRIMERO]
-==> nTableAdd==> nTableRemoveSlot==> nTableRemoveAll==> nTableDeleteSlot0 = [00,00,bb,bb,dd,dd,ff,ff]
+==> listRemove listRemoveFirst listRemoveLast
+[00,aa,bb,cc,dd,ee,ff,gg,hh,zz]
+[zz,hh,gg,ff,ee,dd,cc,bb,aa,00]
+[00,aa,bb,cc,ee,ff,gg,hh,zz]
+[zz,hh,gg,ff,ee,cc,bb,aa,00]
+[00,aa,bb,cc,ee,ff,gg,hh]
+[hh,gg,ff,ee,cc,bb,aa,00]
+[aa,bb,cc,ee,ff,gg,hh]
+[hh,gg,ff,ee,cc,bb,aa]
+[aa,bb,cc,ee,ff,gg]
+[gg,ff,ee,cc,bb,aa]
+[aa,bb,cc,ee,ff,gg]
+[gg,ff,ee,cc,bb,aa]
+[bb,cc,ee,ff,gg]
+[gg,ff,ee,cc,bb]
+[bb,cc,ee,ff]
+[ff,ee,cc,bb]
+[cc,ee,ff]
+[ff,ee,cc]
+[cc,ee,ff]
+[ff,ee,cc]
+==> nTableAdd
+==> nTableRemoveSlot
+==> nTableRemoveAll
+==> nTableDeleteSlot
+0 = [00,00,bb,bb,dd,dd,ff,ff]
 1 = [00,00,aa,aa,dd,dd,ff,ff]
 2 = [00,00,aa,aa,bb,bb,ff,ff]
 3 = [00,00,aa,aa,bb,bb,dd,dd]
@@ -205,7 +585,12 @@ cmp(tix,tix) -> 0
 29 = [00,00,aa,aa,bb,bb,dd,dd,ff,ff]
 30 = [00,00,aa,aa,bb,bb,dd,dd,ff,ff]
 31 = [00,00,aa,aa,bb,bb,dd,dd,ff,ff]
-==> n3treeAdd<< 21ar za33r zar[zar] zasf zsd >>
-==> n3treeRemoveEq<< 21ar za33r zar zasf zsd >>
+==> n3treeAdd
+<< 21ar za33r zar[zar] zasf zsd >>
+==> n3treeRemoveEq
+<< 21ar za33r zar zasf zsd >>
 << 0000[0000,0000] 00aa[00aa,00aa] 00bb[00bb,00bb] 00cc[00cc,00cc] 00dd[00dd,00dd] 00ee[00ee,00ee] 00ff[00ff,00ff] 00gg[00gg,00gg] 00hh[00hh,00hh] 00zz[00zz,00zz] aa00[aa00,aa00] aaaa[aaaa,aaaa] aabb[aabb,aabb] aacc[aacc,aacc] aadd[aadd,aadd] aaee[aaee,aaee] aaff[aaff,aaff] aagg[aagg,aagg] aahh[aahh,aahh] aazz[aazz,aazz] bb00[bb00,bb00] bbaa[bbaa,bbaa] bbbb[bbbb,bbbb] bbcc[bbcc,bbcc] bbdd[bbdd,bbdd] bbee[bbee,bbee] bbff[bbff,bbff] bbgg[bbgg,bbgg] bbhh[bbhh,bbhh] bbzz[bbzz,bbzz] cc00[cc00,cc00] ccaa[ccaa,ccaa] ccbb[ccbb,ccbb] cccc[cccc,cccc] ccdd[ccdd,ccdd] ccee[ccee,ccee] ccff[ccff,ccff] ccgg[ccgg,ccgg] cchh[cchh,cchh] cczz[cczz,cczz] dd00[dd00,dd00] ddaa[ddaa,ddaa] ddbb[ddbb,ddbb] ddcc[ddcc,ddcc] dddd[dddd,dddd] ddee[ddee,ddee] ddff[ddff,ddff] ddgg[ddgg,ddgg] ddhh[ddhh,ddhh] ddzz[ddzz,ddzz] ee00[ee00,ee00] eeaa[eeaa,eeaa] eebb[eebb,eebb] eecc[eecc,eecc] eedd[eedd,eedd] eeee[eeee,eeee] eeff[eeff,eeff] eegg[eegg,eegg] eehh[eehh,eehh] eezz[eezz,eezz] ff00[ff00,ff00] ffaa[ffaa,ffaa] ffbb[ffbb,ffbb] ffcc[ffcc,ffcc] ffdd[ffdd,ffdd] ffee[ffee,ffee] ffff[ffff,ffff] ffgg[ffgg,ffgg] ffhh[ffhh,ffhh] ffzz[ffzz,ffzz] gg00[gg00,gg00] ggaa[ggaa,ggaa] ggbb[ggbb,ggbb] ggcc[ggcc,ggcc] ggdd[ggdd,ggdd] ggee[ggee,ggee] ggff[ggff,ggff] gggg[gggg,gggg] gghh[gghh,gghh] ggzz[ggzz,ggzz] hh00[hh00,hh00] hhaa[hhaa,hhaa] hhbb[hhbb,hhbb] hhcc[hhcc,hhcc] hhdd[hhdd,hhdd] hhee[hhee,hhee] hhff[hhff,hhff] hhgg[hhgg,hhgg] hhhh[hhhh,hhhh] hhzz[hhzz,hhzz] zz00[zz00,zz00] zzaa[zzaa,zzaa] zzbb[zzbb,zzbb] zzcc[zzcc,zzcc] zzdd[zzdd,zzdd] zzee[zzee,zzee] zzff[zzff,zzff] zzgg[zzgg,zzgg] zzhh[zzhh,zzhh] zzzz[zzzz,zzzz] >>
-==> n3treeRemoveEq<< 0000 00aa 00bb 00cc 00dd 00ee 00ff 00gg 00hh 00zz aa00 aaaa aabb aacc aadd aaee aaff aagg aahh aazz bb00 bbaa bbbb bbcc bbdd bbee bbff bbgg bbhh bbzz cc00 ccaa ccbb cccc ccdd ccee ccff ccgg cchh cczz dd00 ddaa ddbb ddcc dddd ddee ddff ddgg ddhh ddzz ee00 eeaa eebb eecc eedd eeee eeff eegg eehh eezz ff00 ffaa ffbb ffcc ffdd ffee ffff ffgg ffhh ffzz gg00 ggaa ggbb ggcc ggdd ggee ggff gggg gghh ggzz hh00 hhaa hhbb hhcc hhdd hhee hhff hhgg hhhh hhzz zz00 zzaa zzbb zzcc zzdd zzee zzff zzgg zzhh zzzz >>
+==> n3treeRemoveEq
+<< 0000 00aa 00bb 00cc 00dd 00ee 00ff 00gg 00hh 00zz aa00 aaaa aabb aacc aadd aaee aaff aagg aahh aazz bb00 bbaa bbbb bbcc bbdd bbee bbff bbgg bbhh bbzz cc00 ccaa ccbb cccc ccdd ccee ccff ccgg cchh cczz dd00 ddaa ddbb ddcc dddd ddee ddff ddgg ddhh ddzz ee00 eeaa eebb eecc eedd eeee eeff eegg eehh eezz ff00 ffaa ffbb ffcc ffdd ffee ffff ffgg ffhh ffzz gg00 ggaa ggbb ggcc ggdd ggee ggff gggg gghh ggzz hh00 hhaa hhbb hhcc hhdd hhee hhff hhgg hhhh hhzz zz00 zzaa zzbb zzcc zzdd zzee zzff zzgg zzhh zzzz >>
+==> n3treeDelete n3treeRemoveEq
+<< >><< 00 aa bb cc dd ee ff gg hh zz >><< 00[00] aa[aa] bb[bb] cc[cc] dd[dd] ee[ee] ff[ff] gg[gg] hh[hh] zz[zz] >><< 00 aa bb cc dd ee ff gg hh zz >>
