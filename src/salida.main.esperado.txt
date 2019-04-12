@@ -4,6 +4,7 @@ strLen("abc") = 3
 strLen("") = 0
 mambo
 mango
+NULL
 []
 [foo,bar,baz]
 []

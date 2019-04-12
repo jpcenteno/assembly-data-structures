@@ -39,8 +39,14 @@ void test_string(FILE *pfile){
     strDelete(s3); // El test es que no leeakee memoria
 
     // strPrint
-    strPrint("mambo\n", pfile);
-    strPrint("mango\n", pfile);
+    {
+        strPrint("mambo\n", pfile);
+        strPrint("mango\n", pfile);
+    }
+    {
+        strPrint("", pfile);
+        strPrint("\n", pfile);
+    }
 
     // strCmp
     {

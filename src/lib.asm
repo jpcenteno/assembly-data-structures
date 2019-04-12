@@ -39,6 +39,8 @@ section .rodata
   listPrint_bracket_close: DB "]", 0
   listPrint_ptr:           DB "%p", 0
 
+  strPrint_null:           DB "NULL", 0
+
 
 section .text
 
@@ -248,6 +250,13 @@ strPrint:
     mov rdi, rsi
     mov rsi, rax
 
+    ; Si la string es vacia, imprime NULL
+    cmp BYTE [rsi], 0                   ; cmp a[0], NUL
+    jne .print
+
+      mov rsi, strPrint_null            ; a = "NULL"
+
+  .print:
     call fprintf ; fprintf(pfile, a)
 
     pop rbp
