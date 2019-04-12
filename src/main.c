@@ -236,6 +236,11 @@ void test_list(FILE *pfile){
         free(l);
 
     }
+    { // Borrar de una lista vacia. Caso que fallaba en tester.c
+        l1 = listNew();
+        listRemoveLast(l1, (funcDelete_t*)&strDelete);
+        listDelete(l1, NULL);
+    }
     // void listRemove(list_t* l, void* data, funcCmp_t* fc, funcDelete_t* fd)
     {
 

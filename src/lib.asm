@@ -548,6 +548,10 @@ listRemoveLast:
     push rbp
     mov rbp, rsp
 
+    ; if (l->first == NULL) return;
+    cmp QWORD [rdi + LIST_OFF_FIRST], 0
+    je .ret
+
     mov rax, [rdi + LIST_OFF_LAST]         ; rax = e = l->last
     mov rdx, [rax + LISTELEM_OFF_PREV]     ; rdx = (l->last)->prev
     mov [rdi + LIST_OFF_LAST], rdx         ; l->last = (l->last)->prev
@@ -559,6 +563,8 @@ listRemoveLast:
   .remove_elem:
     mov rdi, rax                           ; 1er arg = e
     call aux_list_elem_remove              ; aux_list_elem_remove(e, fd)
+
+  .ret:
 
     pop rbp
     ret
