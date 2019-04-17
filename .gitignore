@@ -5,7 +5,6 @@ src/main
 
 # Archivos generados al correr los tests
 vgcore.*
-valgrindlog*
 salida.caso1.txt
 salida.caso2.txt
 salida.caso3.txt

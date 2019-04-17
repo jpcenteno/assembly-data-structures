@@ -19,7 +19,7 @@ lib_asm.o: lib.asm
 
 clean:
 	rm -f *.o
-	rm -f vgcore.* valgrindlog*
+	rm -f vgcore.*
 	rm -f main tester
 	rm -f salida.*.propios.txt salida.caso1.txt salida.caso2.txt salida.caso3.txt
 

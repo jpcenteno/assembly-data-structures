@@ -19,7 +19,7 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-valgrind --show-reachable=yes --leak-check=full --error-exitcode=1 --log-file="valgrindlog" ./tester
+valgrind --show-reachable=yes --leak-check=full --error-exitcode=1 ./tester
 if [ $? -ne 0 ]; then
   echo "  **Error de memoria"
   exit 1
