@@ -1129,6 +1129,11 @@ nTableAdd:
     push rbp
     mov rbp, rsp
 
+    ; if (slot >= t->size) return;
+    mov eax, [rdi + NTABLE_OFF_SIZE]      ; rax = t->size
+    cmp rsi, rax                          ; slot >= t->size
+    jge .end                              ; => jump .end
+
     mov rdi, [rdi + NTABLE_OFF_LISTARRAY] ; rdi = t->listArray       (1er arg)
     mov rdi, [rdi + rsi * SIZE_PTR]       ; rdi = t->listArray[slot] (1er arg)
 
@@ -1136,6 +1141,8 @@ nTableAdd:
     mov rdx, rcx                          ; rcx = fc   (3er arg)
 
     call listAdd                          ; listAdd(t->listArray[slot], data, fc)
+
+  .end:
 
     pop rbp
     ret
