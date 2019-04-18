@@ -33,6 +33,30 @@ void test_string(FILE *pfile){
         assert(strcmp(s, "foobarbaz") == 0);
         strDelete(s);
     }
+    {
+
+        char *a, *b, *c;
+
+        a = strClone("perro_");
+        b = strClone("loco");
+        assert(strLen(a) == 6);
+        assert(strLen(b) == 4);
+
+        c = strConcat(a,b);
+        assert(strCmp(c, "perro_loco") == 0);
+
+        c = strConcat(c,strClone(""));
+        assert(strCmp(c, "perro_loco") == 0);
+
+        c = strConcat(strClone(""),c);
+        assert(strCmp(c, "perro_loco") == 0);
+
+        c = strConcat(c,c);
+        assert(strCmp(c, "perro_locoperro_loco") == 0);
+
+        strDelete(c);
+
+    }
 
     // strDelete
     char* s3 = strClone("asdfg");
