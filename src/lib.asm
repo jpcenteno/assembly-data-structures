@@ -169,45 +169,64 @@ strConcat:
     push rbp
     mov rbp, rsp
 
-    push rsi            ; Preservo 'b'
-    push rdi            ; Preservo 'a'
+    push r12
+    push r13
+    push r14
+    sub rsp, 8
 
-    call strLen         ; eax = strlen(a); rdi y rsi = indef
+    ; preservo parametros
+    mov r12, rdi                        ; r12 = a
+    mov r13, rsi                        ; r13 = b
 
-    push rax            ; Preservo `strLen(a)`
-    sub rsp, 8          ; Balanceo stack
 
-    mov rdi, [rsp + 24] ; Leo b sin sacar del stack
+    ; strlen(a)
+                        ; rdi = a (1er param)
+    call strLen         ; eax = strlen(a);
+    mov r14, rax        ; preservo rax = strlen(a)
+
+    ; strlen(b)
+    mov rdi, r13        ; rdi = b (1er param)
     call strLen         ; eax = strlen(b)
 
-                        ; Pido memoria para `out = a++b`
-    add rsp, 8
-    pop rdi             ; edi = strlen(a)
-    add edi, eax        ; edi = strLen(a) + strLen(b)
-    inc edi             ; edi = strLen(a) + strLen(b) + 1
-    call malloc         ; rax -> cantidad de bytes para `a++b`
+    ; malloc( strlen(a) + strlen(b) + 1 )
+    mov rdi, r14        ; rdi = strlen(a)
+    add rdi, rax        ; rdi = strlen(a) + strlen(b)
+    inc rdi             ; rdi = strlen(a) + strlen(b) + 1
+    call malloc         ; rax es la cantidad de bytes para `a++b`
+    mov r14, rax        ; preservo string 'out'
 
     mov rdi, rax        ; Puntero mutable a la string concatenada
 
-                        ; Copio 'a'
-    mov rsi, [rsp + 0]  ; puntero a 'a'
-    jmp .cond_a
+    ; char* p = a;
+    ; while (*p != 0) {
+    ;     *out = *p
+    ;     out++
+    ;     p++
+    ; }
+    mov rsi, r12                        ; rsi = a. puntero para recorrer 'a'
+    jmp .cond_a                         ; salta directo a la guarda
   .loop_a:
-    mov dl, [rsi]       ; Leo 1 char de a
-    mov [rdi], dl       ; Escribo 1 char en la string de salida 'out'
-    inc rsi             ; a++
-    inc rdi             ; out++
+        mov dl, [rsi]                   ; Leo 1 char de a
+        mov [rdi], dl                   ; Escribo 1 char 'out'
+        inc rsi                         ; a++
+        inc rdi                         ; out++
   .cond_a:
     cmp BYTE [rsi], 0   ; Chequea *a != \0
     jne .loop_a
 
-    mov rsi, [rsp + 8]  ; puntero a 'b'
+    ; char* p = b;
+    ; while (*p != 0) {
+    ;     *out = *p
+    ;     out++
+    ;     p++
+    ; }
+    mov rsi, r13                        ; rsi = b. puntero para recorrer 'b'
     jmp .cond_b
   .loop_b:
-    mov dl, [rsi]       ; leo 1 char de 'b'
-    mov [rdi], dl       ; Escribo 1 char en la string de salida 'out'
-    inc rsi             ; b++
-    inc rdi             ; out++
+        mov dl, [rsi]       ; leo 1 char de 'b'
+        mov [rdi], dl       ; Escribo 1 char en 'out'
+        inc rsi             ; b++
+        inc rdi             ; out++
   .cond_b:
     cmp BYTE [rsi], 0   ; Chequea *b != \0
     jne .loop_b
@@ -217,15 +236,26 @@ strConcat:
 
     ; En el manejo de memoria del programa, es esta funcion quien debe liberar
     ; 'a' y 'b'.
-    pop rdi                             ; rdi = 'a'
-    push rax                            ; stack = [out, b, rbp, ret,...
+
+    ; si a == b, solo libera una vez.
+    cmp r12, r13
+    je .free_b
+
+  .free_a:
+    mov rdi, r12                        ; rdi = a (1er param)
     call free                           ; free(a)
 
-    mov rdi, [rsp + 8]                  ; rdi = b (1er param)
+  .free_b:
+    mov rdi, r13                        ; rdi = b (1er param)
     call free                           ; free(b)
 
-    pop rax                             ; return out
-    add rsp, 8                          ; balanceo stack
+    ; return 'out'
+    mov rax, r14
+
+    add rsp, 8
+    pop r14
+    pop r13
+    pop r12
 
     pop rbp
     ret
@@ -1099,6 +1129,11 @@ nTableAdd:
     push rbp
     mov rbp, rsp
 
+    ; if (slot >= t->size) return;
+    mov eax, [rdi + NTABLE_OFF_SIZE]      ; rax = t->size
+    cmp rsi, rax                          ; slot >= t->size
+    jge .end                              ; => jump .end
+
     mov rdi, [rdi + NTABLE_OFF_LISTARRAY] ; rdi = t->listArray       (1er arg)
     mov rdi, [rdi + rsi * SIZE_PTR]       ; rdi = t->listArray[slot] (1er arg)
 
@@ -1106,6 +1141,8 @@ nTableAdd:
     mov rdx, rcx                          ; rcx = fc   (3er arg)
 
     call listAdd                          ; listAdd(t->listArray[slot], data, fc)
+
+  .end:
 
     pop rbp
     ret
