@@ -1174,13 +1174,22 @@ nTableDeleteSlot:
     push r12
     push r13
 
+    mov rcx, rdx                          ; preservo rcx = fd
+
+    ; Acota slot con t->size
+    ; rsi = slot % t->size
+    xor edx, edx                          ; anulo parte alta del dividendo
+    mov eax, esi                          ; parte baja dividendo = slot
+    div DWORD [rdi + NTABLE_OFF_SIZE]     ; divido por su tamano (edx:eax / t->size)
+    mov esi, edx                          ; slot = slot % t->size (edx)
+
     mov r12, rdi                          ; r12 = t
     mov r13, rsi                          ; r13 = slot
 
     ; Borro la lista vieja
     mov rdi, [r12 + NTABLE_OFF_LISTARRAY] ; rdi = t->listArray       (1er arg)
     mov rdi, [rdi + r13 * SIZE_PTR]       ; rdi = t->listArray[slot] (1er arg)
-    mov rsi, rdx                          ; rsi = fd                 (2do arg)
+    mov rsi, rcx                          ; rsi = fd                 (2do arg)
     call listDelete                       ; listDelete(t->listArray[slot], fd)
 
     ; Creo una lista vacia
