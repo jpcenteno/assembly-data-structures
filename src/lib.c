@@ -76,17 +76,29 @@ void n3treePrintAux(n3treeElem_t* e, FILE *pFile, funcPrint_t* fp) {
     if (!e) return; // Caso base
 
     n3treePrintAux(e->left, pFile, fp);
-    if (e->left) { fprintf(pFile, ","); }
+    if (e->left) { fprintf(pFile, " "); }
     n3treePrintElement(e, pFile, fp);
-    if (e->right) { fprintf(pFile, ","); }
+    if (e->right) { fprintf(pFile, " "); }
     n3treePrintAux(e->right, pFile, fp);
 }
 
 void n3treePrint(n3tree_t* t, FILE *pFile, funcPrint_t* fp) {
 
-    fprintf(pFile, "<< ");
-    n3treePrintAux(t->first, pFile, fp);
-    fprintf(pFile, " >>");
+    fprintf(pFile, "<<");
+
+    if (t->first) {
+
+        fprintf(pFile, " ");
+        n3treePrintAux(t->first, pFile, fp);
+        fprintf(pFile, " ");
+
+    } else {
+
+        fprintf(pFile, " ");
+
+    }
+
+    fprintf(pFile, ">>");
 
 }
 
