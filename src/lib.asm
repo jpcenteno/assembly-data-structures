@@ -39,6 +39,7 @@ section .rodata
   listPrint_bracket_close: DB "]", 0
   listPrint_ptr:           DB "%p", 0
 
+  strPrint_formatter:      DB "%s", 0
   strPrint_null:           DB "NULL", 0
 
 
@@ -275,19 +276,18 @@ strPrint:
     push rbp
     mov rbp, rsp
 
-    ; Swap `rdi` <-> `rsi`
-    mov rax, rdi
-    mov rdi, rsi
-    mov rsi, rax
+    mov rdx, rdi                          ; 3er arg = a
+    mov rdi, rsi                          ; 1er arg = pfile
+    mov rsi, strPrint_formatter           ; 2do arg = "%s"
 
     ; Si la string es vacia, imprime NULL
-    cmp BYTE [rsi], 0                   ; cmp a[0], NUL
+    cmp BYTE [rdx], 0                     ; cmp a[0], NUL
     jne .print
 
-      mov rsi, strPrint_null            ; a = "NULL"
+      mov rdx, strPrint_null              ; a = "NULL"
 
   .print:
-    call fprintf ; fprintf(pfile, a)
+    call fprintf ; fprintf(pfile, "%s" a)
 
     pop rbp
     ret
