@@ -38,9 +38,17 @@ Funciones de `nTable_t`:
 Funciones a implementar en `C`:
 - [X] `char* strRange(char* a, uint32_t i, uint32_t f)` (15 LOCs)
 - [X] `void listPrintReverse(list_t* l, FILE *pFile, funcPrint_t* fp)` (15 LOCs)
-- [ ] `void n3treePrint(n3tree_t* t, FILE *pFile, funcPrint_t* fp)` (11 LOCs)
+- [X] `void n3treePrint(n3tree_t* t, FILE *pFile, funcPrint_t* fp)` (11 LOCs)
 - [X] `void nTableRemoveAll(nTable_t* t, void* data, funcCmp_t* fc, funcDelete_t* fd)` (2 LOCs)
 - [X] `void nTablePrint(nTable_t* t, FILE *pFile, funcPrint_t* fp)`  (5 locs)
+
+## Notas mias
+
+### Manejo de memoria
+
+Una vez que le paso un puntero a un dato a una funcion, pierdo el ownership.
+Son las funciones que deben encargarse de destruir sus parametros de ser
+necesario.
 
 ## Changelog
 
