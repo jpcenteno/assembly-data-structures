@@ -1,4 +1,4 @@
-# TP1
+# Data Structures in Raw Assembly
 
 This project implements some data structures in x86-64 (Intel) assembly. The instructions here conform to the C ABI, so they can be used from within C programs (Tested on Linux and Mac OS).
 
