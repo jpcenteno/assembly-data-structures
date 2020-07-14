@@ -1,6 +1,8 @@
 # TP1
 
-Joaquin Perez Centeno (699/16)
+This project implements some data structures in x86-64 (Intel) assembly. The instructions here conform to the C ABI, so they can be used from within C programs (Tested on Linux and Mac OS).
+
+This insanity was written for the "Computer Organization" course, taught during the first semester of 2019 at the Faculty of Natural and Exact Sciences, University of Buenos Aires.
 
 ## Funciones a implementar
 
